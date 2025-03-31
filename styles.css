@@ -54,7 +54,7 @@ header {
     color: #2e2d40;
     border: none;
     border-radius: 8px;
-    padding: 8px 12px;
+    padding: 8px 50px;
     cursor: pointer;
     transition: background-color 0.3s;
 }
