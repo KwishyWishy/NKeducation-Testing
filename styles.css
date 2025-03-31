@@ -101,9 +101,10 @@ header {
 main {
     text-align: center;
     margin-top: 50px;
+    color: #2e2d40;
 }
 
 h1 {
-    color: darkblue;
+    color: #2e2d40;
     font-size: 36px;
 }
