@@ -54,7 +54,6 @@ header {
     border-radius: 5px;
     padding: 8px 12px;
     cursor: pointer;
-    margin-left: 10px; /* Space between link and button */
     transition: background-color 0.3s;
 }
 
