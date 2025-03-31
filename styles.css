@@ -16,6 +16,7 @@ header {
 .header-left {
     font-size: 25px;
     font-weight: bold;
+    text-decoration: none;
 }
 
 .header-right ul {
