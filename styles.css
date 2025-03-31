@@ -66,14 +66,14 @@ header {
 /* update log styles */
 
 .container {
-    text-align: center;
+    text-align: left;
     padding: 20px;
 }
 
 .output {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: left;
 }
 
 .bubble {
