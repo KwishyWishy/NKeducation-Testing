@@ -15,6 +15,7 @@ header {
 
 .header-left a {
     font-size: 25px;
+    color: #2e2d40;
     font-weight: bold;
     text-decoration: none;
 }
@@ -33,7 +34,7 @@ header {
 .header-right a {
     font-size: 25px;
     text-decoration: none;
-    color: #FF0000;
+    color: #2e2d40;
     font-weight: bold;
 }
 
