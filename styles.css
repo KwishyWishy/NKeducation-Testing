@@ -10,7 +10,7 @@ header {
     justify-content: space-between;
     align-items: center;
     background-color: #86BFF3;
-    padding: 0px 0px;
+    padding: 10px 40px;
 }
 
 .header-left a {
@@ -28,7 +28,7 @@ header {
 }
 
 .header-right li {
-    margin-left: 20px;
+    margin-left: 0px;
 }
 
 .header-right a {
