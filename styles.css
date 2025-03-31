@@ -10,11 +10,11 @@ header {
     justify-content: space-between;
     align-items: center;
     background-color: #86BFF3;
-    padding: 10px 20px;
+    padding: 40px 20px;
 }
 
 .header-left {
-    font-size: 20px;
+    font-size: 30px;
     font-weight: bold;
 }
 
@@ -30,7 +30,7 @@ header {
 }
 
 .header-right a {
-    font-size: 20px;
+    font-size: 30px;
     text-decoration: none;
     color: #FF0000;
     font-weight: bold;
