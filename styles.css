@@ -47,6 +47,21 @@ header {
     color: #2980b9; /* Darker color on hover */
 }
 
+.nav-button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 12px;
+    cursor: pointer;
+    margin-left: 10px; /* Space between link and button */
+    transition: background-color 0.3s;
+}
+
+.nav-button:hover {
+    background-color: #0056b3;
+}
+
 main {
     text-align: center;
     margin-top: 50px;
