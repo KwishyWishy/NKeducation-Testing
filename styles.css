@@ -63,6 +63,45 @@ header {
     background-color: #51a7f5;
 }
 
+/* update log styles */
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #070116;
+    color: white;
+}
+
+.container {
+    text-align: center;
+    padding: 20px;
+}
+
+.output {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.bubble {
+    background-color: rgb(41, 216, 216);
+    padding: 20px;
+    margin: 20px;
+    border-radius: 15px;
+    width: 300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.bubble h2 {
+    margin: 0;
+}
+
+.bubble ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+/* end update log styles */
+
 main {
     text-align: center;
     margin-top: 50px;
