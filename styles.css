@@ -38,6 +38,15 @@ header {
     font-weight: bold;
 }
 
+.hover-text {
+    color: #3498db; /* Original text color */
+    transition: color 0.3s ease; /* Smooth transition */
+}
+
+.hover-text:hover {
+    color: #2980b9; /* Darker color on hover */
+}
+
 main {
     text-align: center;
     margin-top: 50px;
