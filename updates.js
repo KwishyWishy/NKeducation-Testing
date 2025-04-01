@@ -19,7 +19,7 @@ function createBubble(update) {
     const bubble = document.createElement("div");
     bubble.classList.add("bubble");
     bubble.innerHTML = `
-        <h2>Update #${update.update_number}</h2>
+        <h2>Update ${update.update_number}</h2>
         <p>Date: ${update.date}</p>
         <p>Description: ${update.description}</p>
         <p>Changes:</p>
