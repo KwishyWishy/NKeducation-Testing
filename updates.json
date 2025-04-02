@@ -11,23 +11,23 @@
       ]
     },
     {
-      "update_number": 2,
-      "date": "2023-10-15",
-      "description": "Minor updates and bug fixes.",
+      "update_number": "BETA v1.1.0",
+      "date": "March 31, 2025",
+      "description": "UI and Functionality Changes",
       "changes": [
-        "Improved performance of data loading.",
-        "Fixed UI issues on mobile devices.",
-        "Updated user guide."
+        "Created Interactive Header (Buttons and Text Shading)",
+        "Unified Site Font Color",
+        "Created a Simpler Updates System (Unofficial-Version)"
       ]
     },
     {
-      "update_number": 3,
-      "date": "2023-11-01",
-      "description": "Major feature update.",
+      "update_number": "BETA v1.0.0",
+      "date": "March 29, 2025",
+      "description": "Launch of NKeducation",
       "changes": [
-        "Introduced new reporting features.",
-        "Enhanced security protocols.",
-        "Added multi-language support."
+        "Basic Header Created",
+        "About Page Created",
+        "Updates Page Created"
       ]
     }
   ]
