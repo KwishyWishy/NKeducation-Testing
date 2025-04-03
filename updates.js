@@ -24,7 +24,7 @@ function createBubble(update) {
         <p>Description: ${update.description}</p>
         <p>Changes:</p>
         <ul>
-            ${update.changes.map(change => `\t<li>${change}</li>`).join('')}
+            ${update.changes.map(change => `    <li>${change}</li>`).join('')}
         </ul>
     `;
     output.append(bubble);
