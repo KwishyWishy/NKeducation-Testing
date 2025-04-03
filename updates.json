@@ -1,13 +1,13 @@
 {
   "updates": [
     {
-      "update_number": "BETA v1.0.0",
+      "update_number": "BETA v2.0.0",
       "date": "2023-10-01",
-      "description": "Initial release of the application.",
+      "description": "Introducing TriCube Education!",
       "changes": [
-        "Added user authentication.",
-        "Implemented dashboard features.",
-        "Fixed bugs in the login process."
+        "Rebranded From NKeducation to TriCube Education",
+        "Added Tab Icon",
+        "Made New Logo as Return Button"
       ]
     },
     {
