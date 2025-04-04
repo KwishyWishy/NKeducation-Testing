@@ -94,16 +94,16 @@ header {
 }
 
 .bubble .update-date {
-    margin: 0; /* Remove default margin */
-    font-style: italic; /* Example style for date */
+    margin: 5px 0; /* Remove default margin */
     color: #2e2d40; /* Example color for date */
+    font-style: italic;
     font-size: 20px;
 }
 
 .bubble .update-description {
     margin: 10px 0; /* Add some margin for spacing */
-    font-weight: bold; /* Example style for description */
     color: #2e2d40; /* Example color for description */
+    font-weight: bold; /* Example style for description */
     font-size: 18px;
 }
 
