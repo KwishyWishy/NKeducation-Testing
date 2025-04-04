@@ -92,6 +92,10 @@ header {
     margin: 0;
 }
 
+.bubble p {
+    margin: 5px 0;
+}
+
 .bubble ul {
     list-style-type: disc; /* Default bullet style */
     padding-left: 20px; /* Indent the entire list */
