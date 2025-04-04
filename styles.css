@@ -18,6 +18,7 @@ header {
     color: #2e2d40;
     font-weight: bold;
     text-decoration: none;
+    top: 50%; 
 }
 
 .header-right ul {
@@ -116,9 +117,12 @@ header {
     background: none;
     border: none;
     font-size: 20px;
-    color: #721c24;
+    color: #2e2d40;
     cursor: pointer;
-    padding: 0 10px;
+    position: absolute; /* Position the button absolutely */
+    right: 15px; /* Set the right position to 15px */
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%); /* Adjust for vertical centering */
 }
 
 .close-button:hover {
