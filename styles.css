@@ -93,8 +93,8 @@ header {
 }
 
 .bubble ul {
-    list-style-type: circle;
-    padding: 0;
+    list-style-type: disc; /* Default bullet style */
+    padding-left: 20px; /* Indent the entire list */
 }
 
 /* end update log styles */
