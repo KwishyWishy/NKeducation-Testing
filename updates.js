@@ -21,6 +21,7 @@ function createBubble(update) {
     bubble.innerHTML = `
         <h2>Update ${update.update_number}</h2>
         <p class="update-date">${update.date}</p>
+        <div class="divider"></div>
         <p class="update-description">${update.description}</p>
         <ul>
             ${update.changes.map(change => `<li>${change}</li>`).join('')}
