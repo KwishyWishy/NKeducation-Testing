@@ -103,7 +103,7 @@ header {
 .announcement-bar {
     background-color: #f8d7da; /* Light red background */
     color: #2e2d40;
-    padding: 0px;
+    padding: 20px;
     text-align: center;
     position: relative;
     display: flex;
