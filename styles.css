@@ -100,6 +100,13 @@ header {
     font-size: 20px;
 }
 
+.bubble .divider {
+    width: 90%; /* 90% of the bubble's width */
+    height: 1px; /* 1 pixel height */
+    background-color: #2e2d40; /* Color of the line */
+    margin: 10px auto; /* Center the line and add vertical spacing */
+}
+
 .bubble .update-description {
     margin: 10px 0; /* Add some margin for spacing */
     color: #2e2d40; /* Example color for description */
