@@ -102,12 +102,12 @@ header {
 
 .announcement-bar {
     background-color: #f8d7da; /* Light red background */
-    color: #721c24; /* Dark red text */
-    padding: 10px;
+    color: #2e2d40;
+    padding: 0px;
     text-align: center;
     position: relative;
     display: flex;
-    justify-content: space-between;
+    justify-content: center; /* Center the text */
     align-items: center;
     border-bottom: 1px solid #f5c6cb; /* Light red border */
 }
