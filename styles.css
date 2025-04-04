@@ -90,15 +90,28 @@ header {
 
 .bubble h2 {
     margin: 0;
+    font-weight: bold
 }
 
-.bubble p {
-    margin: 5px 0;
+.bubble .update-date {
+    margin: 0; /* Remove default margin */
+    font-style: italic; /* Example style for date */
+    color: #2e2d40; /* Example color for date */
+    font-size: 20px;
+}
+
+.bubble .update-description {
+    margin: 10px 0; /* Add some margin for spacing */
+    font-weight: bold; /* Example style for description */
+    color: #2e2d40; /* Example color for description */
+    font-size: 18px;
 }
 
 .bubble ul {
     list-style-type: disc; /* Default bullet style */
     padding-left: 20px; /* Indent the entire list */
+    font-style: italic;
+    font-size: 16px;
 }
 
 /* end update log styles */
