@@ -20,8 +20,8 @@ function createBubble(update) {
     bubble.classList.add("bubble");
     bubble.innerHTML = `
         <h2>Update ${update.update_number}</h2>
-        <p>${update.date}</p>
-        <p>${update.description}</p>
+        <p class="update-date">${update.date}</p>
+        <p class="update-description">${update.description}</p>
         <ul>
             ${update.changes.map(change => `<li>${change}</li>`).join('')}
         </ul>
