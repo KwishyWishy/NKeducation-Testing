@@ -98,6 +98,35 @@ header {
 
 /* end update log styles */
 
+/* start announcements styles */
+
+.announcement-bar {
+    background-color: #f8d7da; /* Light red background */
+    color: #721c24; /* Dark red text */
+    padding: 10px;
+    text-align: center;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #f5c6cb; /* Light red border */
+}
+
+.close-button {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #721c24;
+    cursor: pointer;
+    padding: 0 10px;
+}
+
+.close-button:hover {
+    color: #f5c6cb; /* Change color on hover */
+}
+
+/* end announcements styles */
+
 main {
     text-align: center;
     margin-top: 50px;
