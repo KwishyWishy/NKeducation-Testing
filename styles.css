@@ -191,8 +191,6 @@ header {
 
 .subject:hover .course-dropdown {
     display: block; /* Show the course dropdown on subject hover */
-    background-color: #f1f1f1;
-    text-decoration: underline;
 }
 
 .course-dropdown {
