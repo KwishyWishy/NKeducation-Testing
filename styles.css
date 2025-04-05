@@ -190,15 +190,15 @@ header {
     transition: background-color 0.3s; /* Transition for hover effect */
 }
 
+.subject a:hover {
+    background-color: #f1f1f1; /* Change background on hover */
+    text-decoration: underline;
+}
+
 .subject:hover .course-dropdown {
     display: block; /* Show the course dropdown on subject hover */
 }
 
-.subject:hover a .course-dropdown {
-    background-color: #f1f1f1; /* Change background on hover */
-    text-decoration: underline;
-}
-    
 .course-dropdown {
     display: none; /* Hidden by default */
     position: absolute; /* Position it below the subject link */
@@ -208,6 +208,7 @@ header {
     min-width: 160px; /* Set a width for the course dropdown */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     z-index: 1; /* Ensure it appears above other elements */
+    border-radius: 15px;
 }
 
 .course-dropdown a {
