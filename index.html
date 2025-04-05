@@ -19,6 +19,7 @@
                 <li>
                     <button class="nav-button" onclick="location.href='about.html'">About</button>
                 </li>
+                <div id="dropdown-container"></div>
                 <!-- You can add more tabs here in the future -->
             </ul>
         </nav>
@@ -31,5 +32,14 @@
         <h1>Welcome to TriCube Education</h1>
     </main>
     <script src="announcements.js"></script>
+    <script>
+        // Fetch the dropdown content from the external file
+        fetch('dropdown.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('dropdown-container').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading dropdown:', error));
+    </script>
 </body>
 </html>
