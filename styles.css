@@ -183,7 +183,7 @@ header {
 .subject a {
     display: block; /* Make links block elements */
     padding: 12px 16px; /* Padding for subject links */
-    font-size: 18px
+    font-size: 18px;
     color: #2e2d40;
     text-decoration: none; /* Remove underline */
     transition: background-color 0.3s; /* Transition for hover effect */
@@ -206,7 +206,7 @@ header {
 
 .course-dropdown a {
     padding: 12px 16px; /* Padding for course links */
-    font-size: 18px
+    font-size: 18px;
     color: #2e2d40;
     text-decoration: none; /* Remove underline */
     display: block; /* Make links block elements */
