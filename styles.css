@@ -170,6 +170,7 @@ header {
     min-width: 160px; /* Set a width for the dropdown */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     z-index: 1; /* Ensure it appears above other elements */
+    border-radius: 15px;
 }
 
 .dropdown:hover .dropdown-content {
@@ -193,6 +194,11 @@ header {
     display: block; /* Show the course dropdown on subject hover */
 }
 
+.subject:hover a .course-dropdown {
+    background-color: #f1f1f1; /* Change background on hover */
+    text-decoration: underline;
+}
+    
 .course-dropdown {
     display: none; /* Hidden by default */
     position: absolute; /* Position it below the subject link */
