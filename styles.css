@@ -161,6 +161,62 @@ header {
 
 /* end announcements styles */
 
+/* Start dropdown styles */
+
+.dropdown-content {
+    display: none; /* Hidden by default */
+    position: absolute; /* Position it below the button */
+    background-color: white;
+    min-width: 160px; /* Set a width for the dropdown */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1; /* Ensure it appears above other elements */
+}
+
+.dropdown:hover .dropdown-content {
+    display: block; /* Show the dropdown on hover */
+}
+
+.subject {
+    position: relative; /* Needed for nested dropdown positioning */
+}
+
+.subject a {
+    display: block; /* Make links block elements */
+    padding: 12px 16px; /* Padding for subject links */
+    color: black; /* Text color */
+    text-decoration: none; /* Remove underline */
+    transition: background-color 0.3s; /* Transition for hover effect */
+}
+
+.subject:hover .course-dropdown {
+    display: block; /* Show the course dropdown on subject hover */
+}
+
+.course-dropdown {
+    display: none; /* Hidden by default */
+    position: absolute; /* Position it below the subject link */
+    left: 100%; /* Align to the right of the subject link */
+    top: 0; /* Align to the top */
+    background-color: white;
+    min-width: 160px; /* Set a width for the course dropdown */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1; /* Ensure it appears above other elements */
+}
+
+.course-dropdown a {
+    padding: 12px 16px; /* Padding for course links */
+    color: black; /* Text color */
+    text-decoration: none; /* Remove underline */
+    display: block; /* Make links block elements */
+    transition: background-color 0.3s; /* Transition for hover effect */
+}
+
+.course-dropdown a:hover {
+    background-color: #f1f1f1; /* Change background on hover */
+}
+
+/* End dropdown styles */
+
 main {
     text-align: center;
     margin-top: 50px;
