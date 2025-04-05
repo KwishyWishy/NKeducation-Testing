@@ -146,7 +146,7 @@ header {
 .close-button {
     background: none;
     border: none;
-    font-size: 20px;
+    font-size: 30px;
     color: #2e2d40;
     cursor: pointer;
     position: absolute; /* Position the button absolutely */
