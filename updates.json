@@ -1,6 +1,17 @@
 {
   "updates": [
     {
+      "update_number": "BETA v2.1.0",
+      "date": "April 4, 2025",
+      "description": "Announcements and UI",
+      "changes": [
+        "Created An Announcement Bar on Homepage",
+        "Redesigned Update UI",
+      ]
+    },
+    {
+  "updates": [
+    {
       "update_number": "BETA v2.0.0",
       "date": "April 2, 2025",
       "description": "Introducing TriCube Education!",
