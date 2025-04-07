@@ -1,6 +1,17 @@
 {
   "updates": [
     {
+      "update_number": "BETA v2.1.1",
+      "date": "April 5, 2025",
+      "description": "Implimentation of Subject Framework UI",
+      "changes": [
+        "Added Subject Tab With Dropdowns",
+        "(No Current Function)",
+      ]
+    },
+    {
+  "updates": [
+    {
       "update_number": "BETA v2.1.0",
       "date": "April 4, 2025",
       "description": "Announcements and UI",
