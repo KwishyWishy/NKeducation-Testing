@@ -1,6 +1,4 @@
 {
-  "updates": [
-    {
       "update_number": "BETA v2.1.1",
       "date": "April 5, 2025",
       "description": "Implimentation of Subject Framework UI",
@@ -10,8 +8,6 @@
       ]
     },
     {
-  "updates": [
-    {
       "update_number": "BETA v2.1.0",
       "date": "April 4, 2025",
       "description": "Announcements and UI",
@@ -20,8 +16,6 @@
         "Redesigned Update UI"
       ]
     },
-    {
-  "updates": [
     {
       "update_number": "BETA v2.0.0",
       "date": "April 2, 2025",
