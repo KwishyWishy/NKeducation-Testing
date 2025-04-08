@@ -187,6 +187,7 @@ header {
     border-radius: 15px;
     display: block; /* Make links block elements */
     padding: 12px 16px; /* Padding for subject links */
+    text-align: "center";
     font-size: 18px;
     color: #2e2d40;
     text-decoration: none; /* Remove underline */
@@ -219,6 +220,7 @@ header {
 .course-dropdown a {
     border-radius: 15px;
     padding: 12px 16px; /* Padding for course links */
+    text-align: "center";
     font-size: 18px;
     color: #2e2d40;
     text-decoration: none; /* Remove underline */
