@@ -166,11 +166,13 @@ header {
     background: none;
     border: none;
     font-size: 30px;
-    color: #721c24;
+    color: #2e2d40;
     cursor: pointer;
     display: none; /* Initially hidden */
     margin: 0 auto; /* Center the button */
     margin-top: 5px; /* Add some space between the bar and the button */
+    right: 15px;
+    align-items: right;
 }
 
 .collapsed {
