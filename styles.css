@@ -141,6 +141,9 @@ header {
     justify-content: center; /* Center the text */
     align-items: center;
     border-bottom: 1px solid #f5c6cb; /* Light red border */
+    transition: max-height 0.5s ease, padding 0.5s ease; /* Smooth transition */
+    max-height: 100px; /* Set a max height for the expanded state */
+    overflow: hidden; /* Hide overflow when collapsed */
 }
 
 .close-button {
@@ -157,6 +160,23 @@ header {
 
 .close-button:hover {
     color: #f5c6cb; /* Change color on hover */
+}
+
+.expand-button {
+    background: none;
+    border: none;
+    font-size: 30px;
+    color: #721c24;
+    cursor: pointer;
+    position: absolute; /* Position the button absolutely */
+    right: 15px; /* Set the right position to 15px */
+    top: 10px; /* Adjust the top position */
+    display: none; /* Initially hidden */
+}
+
+.collapsed {
+    max-height: 0; /* Collapse the bar */
+    padding: 0; /* Remove padding when collapsed */
 }
 
 /* end announcements styles */
