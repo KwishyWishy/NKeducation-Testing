@@ -1,5 +1,3 @@
-Run
-Copy code
 document.addEventListener("DOMContentLoaded", function() {
     // Load announcement text from JSON file
     fetch('announcements.json')
