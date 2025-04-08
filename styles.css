@@ -172,7 +172,7 @@ header {
     margin: 0 auto; /* Center the button */
     margin-top: 5px; /* Add some space between the bar and the button */
     right: 15px;
-    align-items: right;
+    text-align: right;
 }
 
 .collapsed {
