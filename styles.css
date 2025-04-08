@@ -175,6 +175,7 @@ header {
 
 .dropdown:hover .dropdown-content {
     display: block; /* Show the dropdown on hover */
+    border-radius: 15px;
 }
 
 .subject {
@@ -196,8 +197,8 @@ header {
 }
 
 .subject:hover .course-dropdown {
-    border-radius: 15px;
     display: block; /* Show the course dropdown on subject hover */
+    border-radius: 15px;
 }
 
 .course-dropdown {
