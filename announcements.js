@@ -1,3 +1,5 @@
+Run
+Copy code
 document.addEventListener("DOMContentLoaded", function() {
     // Load announcement text from JSON file
     fetch('announcements.json')
@@ -8,8 +10,19 @@ document.addEventListener("DOMContentLoaded", function() {
         })
         .catch(error => console.error('Error loading announcement:', error));
 
+    const announcementBar = document.getElementById('announcement-bar');
+    const closeButton = document.getElementById('close-button');
+    const expandButton = document.getElementById('expand-button');
+
     // Close button functionality
-    document.getElementById('close-button').addEventListener('click', function() {
-        document.getElementById('announcement-bar').style.display = 'none';
+    closeButton.addEventListener('click', function() {
+        announcementBar.classList.add('collapsed');
+        expandButton.style.display = 'block'; // Show the expand button
+    });
+
+    // Expand button functionality
+    expandButton.addEventListener('click', function() {
+        announcementBar.classList.remove('collapsed');
+        expandButton.style.display = 'none'; // Hide the expand button
     });
 });
