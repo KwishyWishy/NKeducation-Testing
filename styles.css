@@ -169,11 +169,9 @@ header {
     color: #2e2d40;
     cursor: pointer;
     display: none; /* Initially hidden */
-    margin: 0 auto; /* Center the button */
-    margin-top: 5px; /* Add some space between the bar and the button */
-    right: 15px;
-    text-align: right;
-}
+    position: absolute; /* Position the button absolutely */
+    right: 15px; /* Set the right position to 15px */
+    top: calc(100% + 5px);
 
 .collapsed {
     max-height: 0; /* Collapse the bar */
