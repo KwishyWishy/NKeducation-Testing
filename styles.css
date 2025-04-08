@@ -172,6 +172,7 @@ header {
     position: absolute; /* Position the button absolutely */
     right: 15px; /* Set the right position to 15px */
     margin-top: 5px;
+}
 
 .collapsed {
     max-height: 0; /* Collapse the bar */
