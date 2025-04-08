@@ -168,7 +168,7 @@ header {
     display: none; /* Hidden by default */
     position: absolute; /* Position it below the button */
     background-color: white;
-    min-width: 160px; /* Set a width for the dropdown */
+    min-width: 130px; /* Set a width for the dropdown */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     z-index: 1; /* Ensure it appears above other elements */
 }
@@ -186,7 +186,7 @@ header {
 .subject a {
     border-radius: 15px;
     display: block; /* Make links block elements */
-    padding: 12px 1px; /* Padding for subject links */
+    padding: 12px 16px; /* Padding for subject links */
     text-align: center;
     font-size: 18px;
     color: #2e2d40;
@@ -212,14 +212,14 @@ header {
     left: 100%; /* Align to the right of the subject link */
     top: 0; /* Align to the top */
     background-color: white;
-    min-width: 160px; /* Set a width for the course dropdown */
+    min-width: 130px; /* Set a width for the course dropdown */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     z-index: 1; /* Ensure it appears above other elements */
 }
 
 .course-dropdown a {
     border-radius: 15px;
-    padding: 12px 1px; /* Padding for course links */
+    padding: 12px 16px; /* Padding for course links */
     text-align: center;
     font-size: 18px;
     color: #2e2d40;
