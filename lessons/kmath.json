@@ -1,0 +1,29 @@
+{
+  "lessons": [
+    {
+      "title": "Lesson 1: Introduction to HTML",
+      "browser_title": "Introduction to HTML",
+      "intro": "This lesson covers the basics of HTML.",
+      "video_link": "https://example.com/video1",
+      "lesson_content": "HTML stands for HyperText Markup Language...",
+      "key_points": [
+        "HTML is the standard markup language for creating web pages.",
+        "HTML elements are represented by tags.",
+        "HTML documents are files that end with .html."
+      ]
+    },
+    {
+      "title": "Lesson 2: CSS Basics",
+      "browser_title": "CSS Basics",
+      "intro": "This lesson introduces CSS for styling web pages.",
+      "video_link": "https://example.com/video2",
+      "lesson_content": "CSS stands for Cascading Style Sheets...",
+      "key_points": [
+        "CSS is used to control the layout of web pages.",
+        "CSS can be added to HTML elements in three ways.",
+        "CSS rules consist of selectors and declarations."
+      ]
+    }
+    // Add more lessons as needed
+  ]
+}
