@@ -1,6 +1,6 @@
 "use strict";
 
-const lessonsFile = "kmath.json";
+const lessonsFile = "lessons/kmath.json";
 const lessonLinksDiv = document.getElementById("lesson-links");
 
 window.addEventListener("DOMContentLoaded", () => {
