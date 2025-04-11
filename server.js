@@ -50,7 +50,7 @@ app.get('/lesson/:id', (req, res) => {
                 <ul>
                     ${lesson.keyPoints.map(point => `<li>${point}</li>`).join('')}
                 </ul>
-                <a href="/">Back to Lessons</a>
+                <a href="/kmath">Back to Lessons</a>
             </body>
             </html>
         `;
