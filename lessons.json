@@ -1,0 +1,16 @@
+[
+  {
+      "lessonTitle": "Introduction to JavaScript",
+      "videoLink": "https://example.com/video1",
+      "intro": "Learn the basics of JavaScript.",
+      "lessonContent": "JavaScript is a programming language used for web development.",
+      "keyPoints": ["Variables", "Functions", "Events"]
+  },
+  {
+      "lessonTitle": "Advanced JavaScript",
+      "videoLink": "https://example.com/video2",
+      "intro": "Dive deeper into JavaScript.",
+      "lessonContent": "Explore advanced topics in JavaScript.",
+      "keyPoints": ["Promises", "Async/Await", "Closures"]
+  }
+]
