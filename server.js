@@ -50,7 +50,7 @@ app.get('/lesson/:id', (req, res) => {
                 <ul>
                     ${lesson.keyPoints.map(point => `<li>${point}</li>`).join('')}
                 </ul>
-                <a href="/">Back to Lessons</a>
+                <a href="/kmath">Back to Lessons</a>
             </body>
             </html>
         `;
@@ -59,7 +59,7 @@ app.get('/lesson/:id', (req, res) => {
 });
 
 // Endpoint to serve the main lessons page
-app.get('/', (req, res) => {
+app.get('/kmath', (req, res) => {
     fs.readFile ('lessons.json', 'utf8', (err, data) => {
         if (err) {
             return res.status(500).send('Error reading lessons file');
@@ -74,13 +74,43 @@ app.get('/', (req, res) => {
             <head>
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Lessons</title>
+                <title>Kindergarten Math</title>
+                <link rel="icon" type="image/x-icon" href="/images/tricube-education-favicon.png">
+                <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+                <link rel="stylesheet" href="styles.css">
             </head>
             <body>
-                <h1>Available Lessons</h1>
+                <header>
+                    <div class="header-left"><a href="index.html"><img src="/images/tricube-eduucation-logo.png" style="width:145px;height:60px;"alt="TriCube Education"></a></div>
+                    <nav class="header-right">
+                        <ul>
+                            <li class="dropdown">
+                                <button class="nav-button" onclick="location.href='grade-select.html'">Subjects</button>
+                                <div class="dropdown-content">
+                                    <div class="subject">
+                                        <a href="#">Mathematics</a>
+                                        <div class="course-dropdown">
+                                            <a href="/kmath">Kindergarten</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <button class="nav-button" onclick="location.href='update-log.html'">Updates</button>
+                            </li>
+                            <li>
+                                <button class="nav-button" onclick="location.href='about.html'">About</button>
+                            </li>
+                            <!-- You can add more tabs here in the future -->
+                        </ul>
+                    </nav>
+                </header>
+                <main>
+                    <h1>Available Lessons</h1>
                 <ul>
                     ${lessonsList}
                 </ul>
+                </main>
             </body>
             </html>
         `;
