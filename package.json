@@ -1,23 +1,10 @@
 {
-  "name": "tricube-education-testing",
+  "name": "your-project-name",
   "version": "1.0.0",
   "main": "api/index.js",
   "scripts": {
-    "start": "node api/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node api/index.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/KwishyWishy/TriCube-Education-Testing.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/KwishyWishy/TriCube-Education-Testing/issues"
-  },
-  "homepage": "https://github.com/KwishyWishy/TriCube-Education-Testing#readme",
-  "description": "",
   "dependencies": {
     "express": "^5.1.0"
   }
