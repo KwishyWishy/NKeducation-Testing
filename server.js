@@ -78,7 +78,7 @@ app.get('/lesson/:id', (req, res) => {
                 <main>
                     <h1>${lesson.lessonTitle}</h1>
                     <p>${lesson.intro}</p>
-                    <iframe id="ytplayer" type="text/html" width="720" height="405" src="https://www.youtube.com/embed/${lesson.videoLink}" frameborder="0" allowfullscreen></iframe>
+                    <iframe id="ytplayer" type="text/html" width="720" height="405" src="https://www.youtube.com/embed/${lesson.videoCode}" frameborder="0" allowfullscreen></iframe>
                     <p>${lesson.lessonContent}</p>
                     <h2>Key Points</h2>
                     <ul>
