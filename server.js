@@ -81,9 +81,11 @@ app.get('/lesson/:id', (req, res) => {
                     <iframe id="ytplayer" type="text/html" width="720" height="405" src="https://www.youtube.com/embed/${lesson.videoCode}" frameborder="0" allowfullscreen></iframe>
                     <p>${lesson.lessonContent}</p>
                     <h2>Key Points</h2>
-                    <ul>
-                        ${lesson.keyPoints.map(point => `<li>${point}</li>`).join('')}
-                    </ul>
+                    <div class="lessons-page"
+                        <ul>
+                            ${lesson.keyPoints.map(point => `<li>${point}</li>`).join('')}
+                        </ul>
+                    </div>
                     <a href="/kmath">Back to Lessons</a>
                 </main>
             </body>
@@ -141,9 +143,11 @@ app.get('/kmath', (req, res) => {
                 </header>
                 <main>
                     <h1>Kindergarten Math Lessons</h1>
-                    <ul>
-                        ${lessonsList}
-                    </ul>
+                    <div class="lessons-page"
+                        <ul>
+                            ${lessonsList}
+                        </ul>
+                    </div>
                 </main>
                 <footer>
                     <p>&copy; 2023 TriCube Education. All rights reserved.</p>

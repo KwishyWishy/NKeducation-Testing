@@ -256,6 +256,18 @@ header {
 
 /* End dropdown styles */
 
+/* Main lessons page styles */
+
+.lessons-page ul {
+    margin: 5px 0;
+    list-style-type: disc; /* Default bullet style */
+    font-size: 16px;
+    color: #2e2d40;
+    text-decoration: none;
+}
+
+/* End main lessons page styles */
+
 main {
     text-align: center;
     margin-top: 50px;
