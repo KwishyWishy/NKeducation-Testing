@@ -161,14 +161,17 @@ app.get('/kmath', (req, res) => {
                         .lessons-page {
                             display: grid;
                             grid-template-columns: repeat(3, 1fr);
+                            grid-template-rows: auto; /* Allows each row to adjust based on content */
                             gap: 20px;
                             padding: 20px;
                         }
                         .group {
-                            border: 1px solid #ccc;
-                            border-radius: 8px;
+                            border-radius: 15px;
                             padding: 10px;
-                            background-color: #f9f9f9;
+                            background-color: #86BFF3;
+                        }
+                        .group:hover {
+                            background-color: #51a7f5;
                         }
                         .group h2 {
                             font-size: 1.5em;
