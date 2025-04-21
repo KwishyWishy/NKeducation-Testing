@@ -183,7 +183,7 @@ app.get('/kmath', (req, res) => {
                         }
                         .group a {
                             text-decoration: none;
-                            color: #007BFF;
+                            color: #2e2d40;
                         }
                         .group a:hover {
                             text-decoration: underline;
@@ -191,11 +191,38 @@ app.get('/kmath', (req, res) => {
                     </style>
                 </head>
                 <body>
-                    <div class="lessons-page">
-                        ${groupsList}
-                    </div>
+                <header>
+                    <div class="header-left"><a href="index.html"><img src="/images/tricube-education-logo.png" style="width:145px;height:60px;"alt="TriCube Education"></a></div>
+                    <nav class="header-right">
+                        <ul>
+                            <li class="dropdown">
+                                <button class="nav-button" onclick="location.href='grade-select.html'">Subjects</button>
+                                <div class="dropdown-content">
+                                    <div class="subject">
+                                        <a href="#">Mathematics</a>
+                                        <div class="course-dropdown">
+                                            <a href="/kmath">Kindergarten</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <button class="nav-button" onclick="location.href='update-log.html'">Updates</button>
+                            </li>
+                            <li>
+                                <button class="nav-button" onclick="location.href='about.html'">About</button>
+                            </li>
+                        </ul>
+                    </nav>
+                </header>
+                <main>
+                    <h1>Kindergarten Math Lessons</h1>
+                        <div class="lessons-page">
+                            ${groupsList}
+                        </div>
+                    </main>
                 </body>
-                </html>
+            </html>
             `;
 
             res.send(mainPage);
