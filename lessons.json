@@ -4,13 +4,15 @@
       "videoCode": "VTFnV14MOsk",
       "intro": "Learn the basics of JavaScript.",
       "lessonContent": "JavaScript is a programming language used for web development.",
-      "keyPoints": ["Variables", "Functions", "Events"]
+      "keyPoints": ["Variables", "Functions", "Events"],
+      "group": "Group A"
   },
   {
       "lessonTitle": "Advanced JavaScript",
       "videoCode": "M-waLe-53H4",
       "intro": "Dive deeper into JavaScript.",
       "lessonContent": "Explore advanced topics in JavaScript.",
-      "keyPoints": ["Promises", "Async/Await", "Closures"]
+      "keyPoints": ["Promises", "Async/Await", "Closures"],
+      "group": "Group B"
   }
 ]
