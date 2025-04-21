@@ -166,13 +166,13 @@ app.get('/kmath', (req, res) => {
                             padding: 20px;
                         }
                         .group {
+                            border: 1px solid #ccc;
                             border-radius: 15px;
                             padding: 10px;
                             background-color: #86BFF3;
-                            transition: background-color 0.3s;
                         }
                         .group:hover {
-                            background-color: #68b3f7;
+                            background-color: #51a7f5;
                         }
                         .group h2 {
                             font-size: 1.5em;
