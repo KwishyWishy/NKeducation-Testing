@@ -45,7 +45,7 @@ header {
 }
 
 .hover-text:hover {
-    color: #51a7f5; /* Darker color on hover */
+    color: #68b3f7; /* Darker color on hover */
 }
 
 .nav-button {
@@ -61,7 +61,7 @@ header {
 }
 
 .nav-button:hover {
-    background-color: #51a7f5;
+    background-color: #68b3f7;
 }
 
 /* update log styles */
@@ -90,7 +90,7 @@ header {
 }
 
 .bubble:hover {
-    background-color: #51a7f5;
+    background-color: #68b3f7;
 }
 
 .bubble h2 {
