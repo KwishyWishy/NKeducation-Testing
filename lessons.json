@@ -14,5 +14,37 @@
       "lessonContent": "Explore advanced topics in JavaScript.",
       "keyPoints": ["Promises", "Async/Await", "Closures"],
       "group": "Group B"
+  },
+  {
+      "lessonTitle": "?",
+      "videoCode": "CLgMAzF-ViI",
+      "intro": "Lorem ipsum dolor sit amet consectetur adipiscing elit. Consectetur adipiscing elit quisque faucibus ex sapien vitae. Ex sapien vitae pellentesque sem placerat in id. Placerat in id cursus mi pretium tellus duis. Pretium tellus duis convallis tempus leo eu aenean.",
+      "lessonContent": "Lorem ipsum dolor sit amet consectetur adipiscing elit. Consectetur adipiscing elit quisque faucibus ex sapien vitae. Ex sapien vitae pellentesque sem placerat in id. Placerat in id cursus mi pretium tellus duis. Pretium tellus duis convallis tempus leo eu aenean.",
+      "keyPoints": ["Variables", "Functions", "Events"],
+      "group": "Group C"
+  },
+  {
+      "lessonTitle": "??",
+      "videoCode": "qAlF70MdfwU",
+      "intro": "Dive deeper into JavaScript.",
+      "lessonContent": "Explore advanced topics in JavaScript.",
+      "keyPoints": ["Promises", "Async/Await", "Closures"],
+      "group": "Group D"
+  },
+  {
+      "lessonTitle": "???",
+      "videoCode": "Ef9-wqqOzwo",
+      "intro": "Learn the basics of JavaScript.",
+      "lessonContent": "JavaScript is a programming language used for web development.",
+      "keyPoints": ["Variables", "Functions", "Events"],
+      "group": "Group E"
+  },
+  {
+      "lessonTitle": "????",
+      "videoCode": "MNX6Kt-qXLM",
+      "intro": "Dive deeper into JavaScript.",
+      "lessonContent": "Explore advanced topics in JavaScript.",
+      "keyPoints": ["Promises", "Async/Await", "Closures"],
+      "group": "Group B"
   }
 ]
