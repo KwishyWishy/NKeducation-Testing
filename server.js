@@ -25,6 +25,76 @@ app.get('/lessons', (req, res) => {
     });
 });
 
+// Endpoint to generate lesson pages
+app.get('/lesson/:id', (req, res) => {
+    const lessonId = req.params.id;
+    fs.readFile('lessons.json', 'utf8', (err, data) => {
+        if (err) {
+            return res.status(500).send('Error reading lessons file');
+        }
+        const lessons = JSON.parse(data);
+        const lesson = lessons[lessonId];
+
+        if (!lesson) {
+            return res.status(404).send('Lesson not found');
+        }
+
+        const lessonPage = `
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>${lesson.pageTitle}</title>
+                <link rel="icon" type="image/x-icon" href="/images/tricube-education-favicon.png">
+                <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+                <link rel="stylesheet" href="/styles.css">
+            </head>
+            <body>
+                <header>
+                    <div class="header-left"><a href="/index.html"><img src="/images/tricube-education-logo.png" style="width:145px;height:60px;"alt="TriCube Education"></a></div>
+                    <nav class="header-right">
+                        <ul>
+                            <li class="dropdown">
+                                <button class="nav-button" onclick="location.href='/grade-select.html'">Subjects</button>
+                                <div class="dropdown-content">
+                                    <div class="subject">
+                                        <a href="#">Mathematics</a>
+                                        <div class="course-dropdown">
+                                            <a href="/kmath">Kindergarten</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <button class="nav-button" onclick="location.href='/update-log.html'">Updates</button>
+                            </li>
+                            <li>
+                                <button class="nav-button" onclick="location.href='/about.html'">About</button>
+                            </li>
+                        </ul>
+                    </nav>
+                </header>
+                <main>
+                    <h1>${lesson.lessonTitle}</h1>
+                    <p>${lesson.intro}</p>
+                    <iframe id="ytplayer" type="text/html" width="720" height="405" src="https://www.youtube.com/embed/${lesson.videoCode}" frameborder="0" allowfullscreen></iframe>
+                    <p>${lesson.lessonContent}</p>
+                    <h2>Key Points</h2>
+                    <div class="lessons-page"
+                        <ul>
+                            ${lesson.keyPoints.map(point => `<li>${point}</li>`).join('')}
+                        </ul>
+                    </div>
+                    <a href="/kmath">Back to Lessons</a>
+                </main>
+            </body>
+            </html>
+        `;
+        res.send(lessonPage);
+    });
+});
+
 // Endpoint to serve the main lessons page
 app.get('/kmath', (req, res) => {
     // Read lessons.json
@@ -50,7 +120,7 @@ app.get('/kmath', (req, res) => {
             // Group lessons by their group
             lessons.forEach((lesson, index) => {
                 if (groupMap[lesson.group]) {
-                    groupMap[lesson.group].lessons.push({ title: lesson.title, index });
+                    groupMap[lesson.group].lessons.push({ title: lesson.lessonTitle, index });
                 }
             });
 
@@ -84,44 +154,50 @@ app.get('/kmath', (req, res) => {
                     <link rel="icon" type="image/x-icon" href="/images/tricube-education-favicon.png">
                     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
                     <link rel="stylesheet" href="styles.css">
+                    <style>
+                        body {
+                            font-family: 'Nunito', sans-serif;
+                        }
+                        .lessons-page {
+                            display: grid;
+                            grid-template-columns: repeat(3, 1fr);
+                            gap: 20px;
+                            padding: 20px;
+                        }
+                        .group {
+                            border: 1px solid #ccc;
+                            border-radius: 8px;
+                            padding: 10px;
+                            background-color: #f9f9f9;
+                        }
+                        .group h2 {
+                            font-size: 1.5em;
+                            margin-bottom: 10px;
+                        }
+                        .group ul {
+                            list-style-type: none;
+                            padding: 0;
+                        }
+                        .group li {
+                            margin: 5px 0;
+                        }
+                        .group a {
+                            text-decoration: none;
+                            color: #007BFF;
+                        }
+                        .group a:hover {
+                            text-decoration: underline;
+                        }
+                    </style>
                 </head>
                 <body>
-                    <header>
-                        <div class="header-left"><a href="index.html"><img src="/images/tricube-education-logo.png" style="width:145px;height:60px;" alt="TriCube Education"></a></div>
-                        <nav class="header-right">
-                            <ul>
-                                <li class="dropdown">
-                                    <button class="nav-button" onclick="location.href='grade-select.html'">Subjects</button>
-                                    <div class="dropdown-content">
-                                        <div class="subject">
-                                            <a href="#">Mathematics</a>
-                                            <div class="course-dropdown">
-                                                <a href="/kmath">Kindergarten</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <button class="nav-button" onclick="location.href='update-log.html'">Updates</button>
-                                </li>
-                                <li>
-                                    <button class="nav-button" onclick="location.href='about.html'">About</button>
-                                </li>
-                            </ul>
-                        </nav>
-                    </header>
-                    <main>
-                        <h1>Kindergarten Math Lessons</h1>
-                        <div class="lessons-page">
-                            ${groupsList}
-                        </div>
-                    </main>
-                    <footer>
-                        <p>&copy; 2023 TriCube Education. All rights reserved.</p>
-                    </footer>
+                    <div class="lessons-page">
+                        ${groupsList}
+                    </div>
                 </body>
                 </html>
             `;
+
             res.send(mainPage);
         });
     });
