@@ -159,12 +159,14 @@ app.get('/kmath', (req, res) => {
                             font-family: 'Nunito', sans-serif;
                         }
                         .lessons-page {
-                            display: grid;
-                            grid-template-columns: repeat(3, 1fr);
-                            gap: 20px; /* Space between grid items */
+                            display: flex; 
+                            flex-wrap: wrap; 
+                            gap: 20px; 
                             padding: 20px;
                         }
                         .group {
+                            flex: 1 1 30%; 
+                            min-width: 250px; 
                             border-radius: 15px;
                             padding: 10px;
                             background-color: #86BFF3;
@@ -194,38 +196,38 @@ app.get('/kmath', (req, res) => {
                     </style>
                 </head>
                 <body>
-                    <header>
-                        <div class="header-left"><a href="index.html"><img src="/images/tricube-education-logo.png" style="width:145px;height:60px;" alt="TriCube Education"></a></div>
-                        <nav class="header-right">
-                            <ul>
-                                <li class="dropdown">
-                                    <button class="nav-button" onclick="location.href='grade-select.html'">Subjects</button>
-                                    <div class="dropdown-content">
-                                        <div class="subject">
-                                            <a href="#">Mathematics</a>
-                                            <div class="course-dropdown">
-                                                <a href="/kmath">Kindergarten</a>
-                                            </div>
+                <header>
+                    <div class="header-left"><a href="index.html"><img src="/images/tricube-education-logo.png" style="width:145px;height:60px;"alt="TriCube Education"></a></div>
+                    <nav class="header-right">
+                        <ul>
+                            <li class="dropdown">
+                                <button class="nav-button" onclick="location.href='grade-select.html'">Subjects</button>
+                                <div class="dropdown-content">
+                                    <div class="subject">
+                                        <a href="#">Mathematics</a>
+                                        <div class="course-dropdown">
+                                            <a href="/kmath">Kindergarten</a>
                                         </div>
                                     </div>
-                                </li>
-                                <li>
-                                    <button class="nav-button" onclick="location.href='update-log.html'">Updates</button>
-                                </li>
-                                <li>
-                                    <button class="nav-button" onclick="location.href='about.html'">About</button>
-                                </li>
-                            </ul>
-                        </nav>
-                    </header>
-                    <main>
-                        <h1>Kindergarten Math Lessons</h1>
+                                </div>
+                            </li>
+                            <li>
+                                <button class="nav-button" onclick="location.href='update-log.html'">Updates</button>
+                            </li>
+                            <li>
+                                <button class="nav-button" onclick="location.href='about.html'">About</button>
+                            </li>
+                        </ul>
+                    </nav>
+                </header>
+                <main>
+                    <h1>Kindergarten Math Lessons</h1>
                         <div class="lessons-page">
                             ${groupsList}
                         </div>
                     </main>
                 </body>
-                </html>
+            </html>
             `;
 
             res.send(mainPage);
