@@ -159,14 +159,13 @@ app.get('/kmath', (req, res) => {
                             font-family: 'Nunito', sans-serif;
                         }
                         .lessons-page {
-                            display: flex; 
-                            flex-wrap: wrap; 
-                            gap: 20px; 
+                            display: grid;
+                            grid-template-columns: repeat(3, 1fr);
+                            grid-template-rows: auto;
+                            gap: 20px;
                             padding: 20px;
                         }
                         .group {
-                            flex: 1 1 30%; 
-                            min-width: 250px; 
                             border-radius: 15px;
                             padding: 10px;
                             background-color: #86BFF3;
