@@ -47,7 +47,7 @@ app.get(`/${contentType}/lesson/:id`, (req, res) => {
                 <title>${lesson.pageTitle}</title>
                 <link rel="icon" type="image/x-icon" href="/images/tricube-education-favicon.png">
                 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
-                <link rel="stylesheet" href="/styles.css">
+                <link rel="stylesheet" href="styles.css">
             </head>
             <body>
                 <header>
