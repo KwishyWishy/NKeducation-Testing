@@ -225,7 +225,7 @@ app.get(`/${contentType}`, (req, res) => {
                     </nav>
                 </header>
                 <main>
-                    <h1>Kindergarten Math Lessons</h1>
+                    <h1>Kindergarten Math Lessons </h1>
                     <div class="lessons-page">
                         ${groupsList}
                     </div>
