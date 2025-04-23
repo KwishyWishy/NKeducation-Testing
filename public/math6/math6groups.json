@@ -1,0 +1,26 @@
+[
+    {
+        "name": "Group A",
+        "order": 1
+    },
+    {
+        "name": "Group B",
+        "order": 2
+    },
+    {
+        "name": "Group C",
+        "order": 3
+    },
+    {
+        "name": "Group D",
+        "order": 4
+    },
+    {
+        "name": "Group E",
+        "order": 5
+    },
+    {
+        "name": "Group F",
+        "order": 6
+    }
+]
