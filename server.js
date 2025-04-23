@@ -15,8 +15,8 @@ app.get('/', (req, res) => {
 });
 
 // Endpoint to get lessons
-app.get('/lessons', (req, res) => {
-    fs.readFile('lessons.json', 'utf8', (err, data) => {
+app.get('/kmathlessons', (req, res) => {
+    fs.readFile('/public/kmath/kmathlessons.json', 'utf8', (err, data) => {
         if (err) {
             return res.status(500).send('Error reading lessons file');
         }
@@ -26,9 +26,9 @@ app.get('/lessons', (req, res) => {
 });
 
 // Endpoint to generate lesson pages
-app.get('/lesson/:id', (req, res) => {
+app.get('/kmathlessons/:id', (req, res) => {
     const lessonId = req.params.id;
-    fs.readFile('lessons.json', 'utf8', (err, data) => {
+    fs.readFile('/public/kmath/kmathlessons.json', 'utf8', (err, data) => {
         if (err) {
             return res.status(500).send('Error reading lessons file');
         }
@@ -98,14 +98,14 @@ app.get('/lesson/:id', (req, res) => {
 // Endpoint to serve the main lessons page
 app.get('/kmath', (req, res) => {
     // Read lessons.json
-    fs.readFile('lessons.json', 'utf8', (err, lessonsData) => {
+    fs.readFile('/public/kmath/kmathlessons.json', 'utf8', (err, lessonsData) => {
         if (err) {
             return res.status(500).send('Error reading lessons file');
         }
         const lessons = JSON.parse(lessonsData);
 
         // Read groups.json
-        fs.readFile('groups.json', 'utf8', (err, groupsData) => {
+        fs.readFile('/public/kmath/kmathgroups.json', 'utf8', (err, groupsData) => {
             if (err) {
                 return res.status(500).send('Error reading groups file');
             }
