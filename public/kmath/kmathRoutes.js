@@ -1,21 +1,16 @@
-/*
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
 
-const app = express();
-
-// Middleware to serve static files from the 'public' directory
-app.use(express.static(path.join(__dirname, '..', 'public'))); // Serve public directory
-app.use(express.static(path.join(__dirname, '..', 'images'))); // Serve images directory
+const router = express.Router();
 
 // Define the content type and file paths
 const contentType = 'kmath';
-const lessonsFilePath = path.join(__dirname, 'kmathlessons.json'); // Path to kmathlessons.json
-const groupsFilePath = path.join(__dirname, 'kmathgroups.json'); // Path to kmathgroups.json
+const lessonsFilePath = path.join(__dirname, 'public', contentType, 'kmathlessons.json');
+const groupsFilePath = path.join(__dirname, 'public', contentType, 'kmathgroups.json');
 
 // Endpoint to get lessons
-app.get(`/${contentType}/lessons`, (req, res) => {
+router.get('/lessons', (req, res) => {
     fs.readFile(lessonsFilePath, 'utf8', (err, data) => {
         if (err) {
             return res.status(500).send('Error reading lessons file');
@@ -26,7 +21,7 @@ app.get(`/${contentType}/lessons`, (req, res) => {
 });
 
 // Endpoint to generate lesson pages
-app.get(`/${contentType}/lesson/:id`, (req, res) => {
+router.get('/lesson/:id', (req, res) => {
     const lessonId = req.params.id;
     fs.readFile(lessonsFilePath, 'utf8', (err, data) => {
         if (err) {
@@ -84,7 +79,7 @@ app.get(`/${contentType}/lesson/:id`, (req, res) => {
                 <main>
                     <h1>${lesson.lessonTitle}</h1>
                     <p>${lesson.intro}</p>
-                    <iframe id="ytplayer" type="text/html" width="720" height="405" src="https://www.youtube.com/embed/${lesson.videoCode}" frameborder="0" allowfullscreen></iframe>
+                    <iframe id="ytplayer" type="text/html" width="720" height ="405" src="https://www.youtube.com/embed/${lesson.videoCode}" frameborder="0" allowfullscreen></iframe>
                     <p>${lesson.lessonContent}</p>
                     <h2>Key Points</h2>
                     <div class="lessons-page">
@@ -102,7 +97,7 @@ app.get(`/${contentType}/lesson/:id`, (req, res) => {
 });
 
 // Endpoint to serve the main lessons page
-app.get(`/${contentType}`, (req, res) => {
+router.get('/', (req, res) => {
     fs.readFile(lessonsFilePath, 'utf8', (err, lessonsData) => {
         if (err) {
             return res.status(500).send('Error reading lessons file');
@@ -196,11 +191,11 @@ app.get(`/${contentType}`, (req, res) => {
                 </head>
                 <body>
                 <header>
-                    <div class="header-left"><a href="index.html"><img src="/images/tricube-education-logo.png" style="width:145px;height:60px;"alt="TriCube Education"></a></div>
+                    <div class="header-left"><a href="/index.html"><img src="/images/tricube-education-logo.png" style="width:145px;height:60px;"alt="TriCube Education"></a></div>
                     <nav class="header-right">
                         <ul>
                             <li class="dropdown">
-                                <button class="nav-button" onclick="location.href='grade-select.html'">Subjects</button>
+                                <button class="nav-button" onclick="location.href='/grade-select.html'">Subjects</button>
                                 <div class="dropdown-content">
                                     <div class="subject">
                                         <a href="#">Mathematics</a>
@@ -217,16 +212,16 @@ app.get(`/${contentType}`, (req, res) => {
                                 </div>
                             </li>
                             <li>
-                                <button class="nav-button" onclick="location.href='update-log.html'">Updates</button>
+                                <button class="nav-button" onclick="location.href='/update-log.html'">Updates</button>
                             </li>
                             <li>
-                                <button class="nav-button" onclick="location.href='about.html'">About</button>
+                                <button class="nav-button" onclick="location.href='/about.html'">About</button>
                             </li>
                         </ul>
                     </nav>
                 </header>
                 <main>
-                    <h1>Kindergarten Math Lessons </h1>
+                    <h1>Kindergarten Math Lessons</h1>
                     <div class="lessons-page">
                         ${groupsList}
                     </div>
@@ -239,4 +234,5 @@ app.get(`/${contentType}`, (req, res) => {
         });
     });
 });
-*/
+
+module.exports = router; // Export the router for use in server.js
