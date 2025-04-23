@@ -60,7 +60,13 @@ app.get(`/${contentType}/lesson/:id`, (req, res) => {
                                     <div class="subject">
                                         <a href="#">Mathematics</a>
                                         <div class="course-dropdown">
-                                            <a href="/${contentType}">Kindergarten</a>
+                                            <a href="/kmath">Kindergarten</a>
+                                            <a href="/math1">1st Grade</a>
+                                            <a href="/math2">2nd Grade</a>
+                                            <a href="/math3">3rd Grade</a>
+                                            <a href="/math4">4th Grade</a>
+                                            <a href="/math5">5th Grade</a>
+                                            <a href="/math6">6th Grade</a>
                                         </div>
                                     </div>
                                 </div>
@@ -198,7 +204,13 @@ app.get(`/${contentType}`, (req, res) => {
                                     <div class="subject">
                                         <a href="#">Mathematics</a>
                                         <div class="course-dropdown">
-                                            <a href="/${contentType}">Kindergarten</a>
+                                            <a href="/kmath">Kindergarten</a>
+                                            <a href="/math1">1st Grade</a>
+                                            <a href="/math2">2nd Grade</a>
+                                            <a href="/math3">3rd Grade</a>
+                                            <a href="/math4">4th Grade</a>
+                                            <a href="/math5">5th Grade</a>
+                                            <a href="/math6">6th Grade</a>
                                         </div>
                                     </div>
                                 </div>
