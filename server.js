@@ -6,17 +6,16 @@ const app = express();
 
 // Middleware to serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
-
 app.use(express.static(path.join(__dirname, 'images')));
 
-// Define a route for the root URL
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html')); // Adjust the path as necessary
-});
+// Define the content type and file paths
+const contentType = 'kmath';
+const lessonsFilePath = path.join(__dirname, 'public', contentType, 'public/kmath/kmathlessons.json');
+const groupsFilePath = path.join(__dirname, 'public', contentType, 'public/kmath/kmathgroups.json');
 
 // Endpoint to get lessons
-app.get('/kmathlessons', (req, res) => {
-    fs.readFile('/public/kmath/kmathlessons.json', 'utf8', (err, data) => {
+app.get(`/${contentType}/lessons`, (req, res) => {
+    fs.readFile(lessonsFilePath, 'utf8', (err, data) => {
         if (err) {
             return res.status(500).send('Error reading lessons file');
         }
@@ -26,9 +25,9 @@ app.get('/kmathlessons', (req, res) => {
 });
 
 // Endpoint to generate lesson pages
-app.get('/kmathlessons/:id', (req, res) => {
+app.get(`/${contentType}/lesson/:id`, (req, res) => {
     const lessonId = req.params.id;
-    fs.readFile('/public/kmath/kmathlessons.json', 'utf8', (err, data) => {
+    fs.readFile(lessonsFilePath, 'utf8', (err, data) => {
         if (err) {
             return res.status(500).send('Error reading lessons file');
         }
@@ -61,7 +60,7 @@ app.get('/kmathlessons/:id', (req, res) => {
                                     <div class="subject">
                                         <a href="#">Mathematics</a>
                                         <div class="course-dropdown">
-                                            <a href="/kmath">Kindergarten</a>
+                                            <a href="/${contentType}">Kindergarten</a>
                                         </div>
                                     </div>
                                 </div>
@@ -81,12 +80,12 @@ app.get('/kmathlessons/:id', (req, res) => {
                     <iframe id="ytplayer" type="text/html" width="720" height="405" src="https://www.youtube.com/embed/${lesson.videoCode}" frameborder="0" allowfullscreen></iframe>
                     <p>${lesson.lessonContent}</p>
                     <h2>Key Points</h2>
-                    <div class="lessons-page"
+                    <div class="lessons-page">
                         <ul>
                             ${lesson.keyPoints.map(point => `<li>${point}</li>`).join('')}
                         </ul>
                     </div>
-                    <a href="/kmath">Back to Lessons</a>
+                    <a href="/${contentType}">Back to Lessons</a>
                 </main>
             </body>
             </html>
@@ -96,43 +95,37 @@ app.get('/kmathlessons/:id', (req, res) => {
 });
 
 // Endpoint to serve the main lessons page
-app.get('/kmath', (req, res) => {
-    // Read lessons.json
-    fs.readFile('/public/kmath/kmathlessons.json', 'utf8', (err, lessonsData) => {
+app.get(`/${contentType}`, (req, res) => {
+    fs.readFile(lessonsFilePath, 'utf8', (err, lessonsData) => {
         if (err) {
             return res.status(500).send('Error reading lessons file');
         }
         const lessons = JSON.parse(lessonsData);
 
-        // Read groups.json
-        fs.readFile('/public/kmath/kmathgroups.json', 'utf8', (err, groupsData) => {
+        fs.readFile(groupsFilePath, 'utf8', (err, groupsData) => {
             if (err) {
                 return res.status(500).send('Error reading groups file');
             }
             const groups = JSON.parse(groupsData);
 
-            // Create a map for groups
             const groupMap = {};
             groups.forEach(group => {
                 groupMap[group.name] = { lessons: [], order: group.order };
             });
 
-            // Group lessons by their group
             lessons.forEach((lesson, index) => {
                 if (groupMap[lesson.group]) {
                     groupMap[lesson.group].lessons.push({ title: lesson.lessonTitle, index });
                 }
             });
 
-            // Sort groups by order
             const sortedGroups = Object.keys(groupMap).sort((a, b) => {
                 return groupMap[a].order - groupMap[b].order;
             });
 
-            // Create the lessons list HTML
             const groupsList = sortedGroups.map(groupName => {
                 const lessonsList = groupMap[groupName].lessons.map(lesson => `
-                    <li><a href="/lesson/${lesson.index}">${lesson.title}</a></li>
+                    <li><a href="/${contentType}/lesson/${lesson.index}">${lesson.title}</a></li>
                 `).join('');
                 return `
                     <div class="group">
@@ -150,7 +143,7 @@ app.get('/kmath', (req, res) => {
                 <head>
                     <meta charset="UTF-8">
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>Kindergarten Math</title>
+                    <title>${contentType.charAt(0).toUpperCase() + contentType.slice(1)} Lessons</title>
                     <link rel="icon" type="image/x-icon" href="/images/tricube-education-favicon.png">
                     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
                     <link rel="stylesheet" href="styles.css">
@@ -205,7 +198,7 @@ app.get('/kmath', (req, res) => {
                                     <div class="subject">
                                         <a href="#">Mathematics</a>
                                         <div class="course-dropdown">
-                                            <a href="/kmath">Kindergarten</a>
+                                            <a href="/${contentType}">Kindergarten</a>
                                         </div>
                                     </div>
                                 </div>
@@ -220,11 +213,11 @@ app.get('/kmath', (req, res) => {
                     </nav>
                 </header>
                 <main>
-                    <h1>Kindergarten Math Lessons</h1>
-                        <div class="lessons-page">
-                            ${groupsList}
-                        </div>
-                    </main>
+                    <h1>${contentType.charAt(0).toUpperCase() + contentType.slice(1)} Lessons</h1>
+                    <div class="lessons-page">
+                        ${groupsList}
+                    </div>
+                </main>
                 </body>
             </html>
             `;
