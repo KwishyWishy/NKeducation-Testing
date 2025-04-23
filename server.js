@@ -189,11 +189,11 @@ app.get(`/${contentType}`, (req, res) => {
                 </head>
                 <body>
                 <header>
-                    <div class="header-left"><a href="index.html"><img src="/images/tricube-education-logo.png" style="width:145px;height:60px;"alt="TriCube Education"></a></div>
+                    <div class="header-left"><a href="/index.html"><img src="/images/tricube-education-logo.png" style="width:145px;height:60px;"alt="TriCube Education"></a></div>
                     <nav class="header-right">
                         <ul>
                             <li class="dropdown">
-                                <button class="nav-button" onclick="location.href='grade-select.html'">Subjects</button>
+                                <button class="nav-button" onclick="location.href='/grade-select.html'">Subjects</button>
                                 <div class="dropdown-content">
                                     <div class="subject">
                                         <a href="#">Mathematics</a>
@@ -204,10 +204,10 @@ app.get(`/${contentType}`, (req, res) => {
                                 </div>
                             </li>
                             <li>
-                                <button class="nav-button" onclick="location.href='update-log.html'">Updates</button>
+                                <button class="nav-button" onclick="location.href='/update-log.html'">Updates</button>
                             </li>
                             <li>
-                                <button class="nav-button" onclick="location.href='about.html'">About</button>
+                                <button class="nav-button" onclick="location.href='/about.html'">About</button>
                             </li>
                         </ul>
                     </nav>
