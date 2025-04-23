@@ -6,8 +6,8 @@ const router = express.Router();
 
 // Define the content type and file paths
 const contentType = 'kmath';
-const lessonsFilePath = path.join(__dirname, 'public', contentType, 'kmathlessons.json');
-const groupsFilePath = path.join(__dirname, 'public', contentType, 'kmathgroups.json');
+const lessonsFilePath = path.join(__dirname, 'kmathlessons.json');
+const groupsFilePath = path.join(__dirname, 'kmathgroups.json');
 
 // Endpoint to get lessons
 router.get('/lessons', (req, res) => {
