@@ -1,4 +1,3 @@
-/*
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
@@ -6,13 +5,13 @@ const path = require('path');
 const app = express();
 
 // Middleware to serve static files from the 'public' directory
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'images')));
+app.use(express.static(path.join(__dirname, '..', 'public'))); // Serve public directory
+app.use(express.static(path.join(__dirname, '..', 'images'))); // Serve images directory
 
 // Define the content type and file paths
 const contentType = 'kmath';
-const lessonsFilePath = path.join(__dirname, 'public', contentType, 'kmathlessons.json');
-const groupsFilePath = path.join(__dirname, 'public', contentType, 'kmathgroups.json');
+const lessonsFilePath = path.join(__dirname, 'kmathlessons.json'); // Path to kmathlessons.json
+const groupsFilePath = path.join(__dirname, 'kmathgroups.json'); // Path to kmathgroups.json
 
 // Endpoint to get lessons
 app.get(`/${contentType}/lessons`, (req, res) => {
@@ -61,7 +60,13 @@ app.get(`/${contentType}/lesson/:id`, (req, res) => {
                                     <div class="subject">
                                         <a href="#">Mathematics</a>
                                         <div class="course-dropdown">
-                                            <a href="/${contentType}">Kindergarten</a>
+                                            <a href="/kmath">Kindergarten</a>
+                                            <a href="/math1">1st Grade</a>
+                                            <a href="/math2">2nd Grade</a>
+                                            <a href="/math3">3rd Grade</a>
+                                            <a href="/math4">4th Grade</a>
+                                            <a href="/math5">5th Grade</a>
+                                            <a href="/math6">6th Grade</a>
                                         </div>
                                     </div>
                                 </div>
@@ -199,7 +204,13 @@ app.get(`/${contentType}`, (req, res) => {
                                     <div class="subject">
                                         <a href="#">Mathematics</a>
                                         <div class="course-dropdown">
-                                            <a href="/${contentType}">Kindergarten</a>
+                                            <a href="/kmath">Kindergarten</a>
+                                            <a href="/math1">1st Grade</a>
+                                            <a href="/math2">2nd Grade</a>
+                                            <a href="/math3">3rd Grade</a>
+                                            <a href="/math4">4th Grade</a>
+                                            <a href="/math5">5th Grade</a>
+                                            <a href="/math6">6th Grade</a>
                                         </div>
                                     </div>
                                 </div>
@@ -227,10 +238,3 @@ app.get(`/${contentType}`, (req, res) => {
         });
     });
 });
-
-// Start the server
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
-});
-*/
