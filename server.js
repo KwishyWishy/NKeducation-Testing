@@ -7,12 +7,11 @@ const app = express();
 // Middleware to serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'images')));
-app.use(express.static(path.join(__dirname, 'kmath')));
 
 // Define the content type and file paths
 const contentType = 'kmath';
-const lessonsFilePath = path.join(__dirname, 'public', contentType, '/kmath/kmathlessons.json');
-const groupsFilePath = path.join(__dirname, 'public', contentType, '/kmath/kmathgroups.json');
+const lessonsFilePath = path.join(__dirname, 'public', contentType, 'kmathlessons.json');
+const groupsFilePath = path.join(__dirname, 'public', contentType, 'kmathgroups.json');
 
 // Endpoint to get lessons
 app.get(`/${contentType}/lessons`, (req, res) => {
