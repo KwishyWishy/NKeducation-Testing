@@ -1,22 +1,22 @@
 [
     {
-        "name": "Group A",
+        "name": "Counting & Cardinality",
         "order": 1
     },
     {
-        "name": "Group B",
+        "name": "Operations & Algebraic Thinking",
         "order": 2
     },
     {
-        "name": "Group C",
+        "name": "Numbers & Operations in Base Ten",
         "order": 3
     },
     {
-        "name": "Group D",
+        "name": "Measurement & Data",
         "order": 4
     },
     {
-        "name": "Group E",
+        "name": "Geometry",
         "order": 5
     }
 ]
