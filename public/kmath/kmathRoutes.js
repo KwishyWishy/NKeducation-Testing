@@ -131,10 +131,13 @@ router.get('/', (req, res) => {
                 `).join('');
                 return `
                     <div class="group">
-                        <h2>${groupName}</h2>
-                        <ul>
-                            ${lessonsList}
-                        </ul>
+                        <div class="group-name">${groupName}</div>
+                        <div class="divider"></div>
+                        <div class="lessons">
+                            <ul>
+                                ${lessonsList}
+                            </ul>
+                        </div>
                     </div>
                 `;
             }).join('');
@@ -154,37 +157,49 @@ router.get('/', (req, res) => {
                             font-family: 'Nunito', sans-serif;
                         }
                         .lessons-page {
-                            display: grid;
-                            grid-template-columns: repeat(3, 1fr);
-                            grid-template-rows: auto;
-                            gap: 20px;
                             padding: 20px;
                         }
                         .group {
+                            display: flex;
+                            flex-direction: row;
+                            align-items: flex-start;
                             border-radius: 15px;
                             padding: 10px;
                             background-color: #86BFF3;
+                            margin-bottom: 20px;
                             transition: background-color 0.3s;
                         }
                         .group:hover {
                             background-color: #68b3f7;
                         }
-                        .group h2 {
+                        .group-name {
+                            flex: 1;
                             font-size: 1.5em;
-                            margin-bottom: 10px;
+                            margin-right: 10px;
                         }
-                        .group ul {
+                        .divider {
+                            width: 1px;
+                            background-color: #ccc;
+                            margin: 0 10px;
+                        }
+                        .lessons {
+                            flex: 2;
+                        }
+                        .lessons ul {
                             list-style-type: none;
                             padding: 0;
+                            display: grid;
+                            grid-template-columns: repeat(2, 1fr);
+                            gap: 5px;
                         }
-                        .group li {
+                        .lessons li {
                             margin: 5px 0;
                         }
-                        .group a {
+                        .lessons a {
                             text-decoration: none;
                             color: #2e2d40;
                         }
-                        .group a:hover {
+                        .lessons a:hover {
                             text-decoration: underline;
                         }
                     </style>
