@@ -5,7 +5,7 @@
       "intro": "Learn the basics of JavaScript.",
       "lessonContent": "JavaScript is a programming language used for web development.",
       "keyPoints": ["Variables", "Functions", "Events"],
-      "group": "Group A"
+      "group": "Geometry"
   },
   {
       "lessonTitle": "Advanced JavaScript",
@@ -13,7 +13,7 @@
       "intro": "Dive deeper into JavaScript.",
       "lessonContent": "Explore advanced topics in JavaScript.",
       "keyPoints": ["Promises", "Async/Await", "Closures"],
-      "group": "Group B"
+      "group": "Geometry"
   },
   {
       "lessonTitle": "?",
@@ -21,7 +21,7 @@
       "intro": "Lorem ipsum dolor sit amet consectetur adipiscing elit. Consectetur adipiscing elit quisque faucibus ex sapien vitae. Ex sapien vitae pellentesque sem placerat in id. Placerat in id cursus mi pretium tellus duis. Pretium tellus duis convallis tempus leo eu aenean.",
       "lessonContent": "Lorem ipsum dolor sit amet consectetur adipiscing elit. Consectetur adipiscing elit quisque faucibus ex sapien vitae. Ex sapien vitae pellentesque sem placerat in id. Placerat in id cursus mi pretium tellus duis. Pretium tellus duis convallis tempus leo eu aenean.",
       "keyPoints": ["Variables", "Functions", "Events"],
-      "group": "Group C"
+      "group": "Geometry"
   },
   {
       "lessonTitle": "??",
@@ -29,7 +29,7 @@
       "intro": "Dive deeper into JavaScript.",
       "lessonContent": "Explore advanced topics in JavaScript.",
       "keyPoints": ["Promises", "Async/Await", "Closures"],
-      "group": "Group D"
+      "group": "Geometry"
   },
   {
       "lessonTitle": "???",
@@ -37,7 +37,7 @@
       "intro": "Learn the basics of JavaScript.",
       "lessonContent": "JavaScript is a programming language used for web development.",
       "keyPoints": ["Variables", "Functions", "Events"],
-      "group": "Group E"
+      "group": "Geometry"
   },
   {
       "lessonTitle": "????",
@@ -45,6 +45,6 @@
       "intro": "Dive deeper into JavaScript.",
       "lessonContent": "Explore advanced topics in JavaScript.",
       "keyPoints": ["Promises", "Async/Await", "Closures"],
-      "group": "Group B"
+      "group": "Geometry"
   }
 ]
