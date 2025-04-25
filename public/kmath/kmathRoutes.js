@@ -177,9 +177,10 @@ router.get('/', (req, res) => {
                             font-size: 30px;
                             margin-right: 10px;
                         }
-                        .divider {
-                            width: 1px;
-                            background-color: #2e2d40;
+                        .group .divider {
+                            width: 1px; /* 90% of the bubble's width */
+                            height: 100%; /* 1 pixel height */
+                            background-color: #2e2d40; /* Color of the line */
                             margin: 0 10px;
                         }
                         .lessons {
