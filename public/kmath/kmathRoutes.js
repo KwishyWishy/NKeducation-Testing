@@ -162,7 +162,7 @@ router.get('/', (req, res) => {
                         .group {
                             display: flex;
                             flex-direction: row;
-                            align-items: flex-start;
+                            align-items: center;
                             border-radius: 15px;
                             padding: 10px;
                             background-color: #86BFF3;
@@ -174,7 +174,7 @@ router.get('/', (req, res) => {
                         }
                         .group-name {
                             flex: 1;
-                            font-size: 1.5em;
+                            font-size: 30px;
                             margin-right: 10px;
                         }
                         .divider {
