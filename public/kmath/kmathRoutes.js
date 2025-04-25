@@ -213,16 +213,25 @@ router.get('/', (req, res) => {
     });
 });
 
-// Dynamic route for each group
-router.get('/group/:name', (req, res) => {
-    const groupName = req.params.name;
+router.get('/groups', (req, res) => {
+    fs.readFile(groupsFilePath, 'utf8', (err, data) => {
+        if (err) {
+            return res.status(500).send('Error reading lessons file');
+        }
+        const groups = JSON.parse(data);
+        res.json(groups);
+    });
+});
 
+// Dynamic route for each group
+router.get('/group/:id', (req, res) => {
+    const groupId = req.params.id;
     fs.readFile(groupsFilePath, 'utf8', (err, data) => {
         if (err) {
             return res.status(500).send('Error reading groups file');
         }
         const groups = JSON.parse(data);
-        const group = groups.find(g => g.name === groupName);
+        const group = groups[groupId];
 
         if (!group) {
             return res.status(404).send('Group not found');
