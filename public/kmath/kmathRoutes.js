@@ -130,7 +130,7 @@ router.get('/', (req, res) => {
                     <li><a href="/${contentType}/lesson/${lesson.index}">${lesson.title}</a></li>
                 `).join('');
                 return `
-                    <button onclick="location.href='/group/${groupName}'" class="group-button">${groupName}</button>
+                    <button onclick="location.href='/${contentType}/group/${groupName}'" class="group-button">${groupName}</button>
                 `;
             }).join('');
 
