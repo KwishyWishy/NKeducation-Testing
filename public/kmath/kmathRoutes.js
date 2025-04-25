@@ -179,7 +179,7 @@ router.get('/', (req, res) => {
                         }
                         .divider {
                             width: 1px;
-                            background-color: #ccc;
+                            background-color: #2e2d40;
                             margin: 0 10px;
                         }
                         .lessons {
