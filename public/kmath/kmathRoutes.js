@@ -103,7 +103,12 @@ router.get('/', (req, res) => {
             return res.status(500).send('Error reading lessons file');
         }
         const lessons = JSON.parse(lessonsData);
+        
+        // Extract unique groups
         const sortedGroups = [...new Set(lessons.map(lesson => lesson.group))].sort();
+
+        // Debugging: Log the groups to the console
+        console.log("Extracted Groups:", sortedGroups);
 
         const groupsList = sortedGroups.map(groupName => {
             return `
@@ -173,7 +178,6 @@ router.get('/', (req, res) => {
                     <div class="groups-list">
                         ${groupsList}
                     </div>
-                    <a href="/${contentType}">Back to Lessons</a>
                 </main>
             </body>
             </html>

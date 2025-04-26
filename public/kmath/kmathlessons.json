@@ -5,7 +5,7 @@
       "intro": "Learn the basics of JavaScript.",
       "lessonContent": "JavaScript is a programming language used for web development.",
       "keyPoints": ["Variables", "Functions", "Events"],
-      "group": "Geometry"
+      "group": "MeasurementData"
   },
   {
       "lessonTitle": "Advanced JavaScript",
