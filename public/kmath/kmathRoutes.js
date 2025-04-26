@@ -102,12 +102,12 @@ router.get('/', (req, res) => {
         if (err) {
             return res.status(500).send('Error reading lessons file');
         }
-        const lessons = JSON .parse(lessonsData);
+        const lessons = JSON.parse(lessonsData);
         const sortedGroups = [...new Set(lessons.map(lesson => lesson.group))].sort();
 
         const groupsList = sortedGroups.map(groupName => {
             return `
-                <button onclick="location.href='/${contentType}/group/${encodeURIComponent(groupName)}'" class="group-button">${groupName}</button>
+                <button onclick="location.href='/${contentType}/group/${encodeURIComponent(groupName)}'" class="group-button bubble">${groupName}</button>
             `;
         }).join('');
 
@@ -121,6 +121,21 @@ router.get('/', (req, res) => {
                 <link rel="icon" type="image/x-icon" href="/images/tricube-education-favicon.png">
                 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
                 <link rel="stylesheet" href="/styles.css">
+                <style>
+                    .bubble {
+                        border-radius: 50%;
+                        padding: 15px 30px;
+                        margin: 10px;
+                        background-color: #4CAF50;
+                        color: white;
+                        border: none;
+                        cursor: pointer;
+                        transition: background-color 0.3s;
+                    }
+                    .bubble:hover {
+                        background-color: #45a049;
+                    }
+                </style>
             </head>
             <body>
                 <header>
@@ -194,7 +209,7 @@ router.get('/group/:name', (req, res) => {
             </head>
             <body>
                 <header>
-                    <div class="header-left"><a href="/index.html"><img src="/images/tricube-education-logo.png" style="width:145px;height:60px;"alt="TriCube Education"></a></div>
+ <div class="header-left"><a href="/index.html"><img src="/images/tricube-education-logo.png" style="width:145px;height:60px;"alt="TriCube Education"></a></div>
                     <nav class="header-right">
                         <ul>
                             <li class="dropdown">
@@ -205,7 +220,7 @@ router.get('/group/:name', (req, res) => {
                                         <div class="course-dropdown">
                                             <a href="/kmath">Kindergarten</a>
                                             <a href="/math1">1st Grade</a>
-                                            <a href="/math2 ">2nd Grade</a>
+                                            <a href="/math2">2nd Grade</a>
                                             <a href="/math3">3rd Grade</a>
                                             <a href="/math4">4th Grade</a>
                                             <a href="/math5">5th Grade</a>
