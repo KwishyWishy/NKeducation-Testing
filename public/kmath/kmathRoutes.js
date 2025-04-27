@@ -107,12 +107,22 @@ router.get('/', (req, res) => {
         // Extract unique groups
         const sortedGroups = [...new Set(lessons.map(lesson => lesson.group))].sort();
 
-        // Debugging: Log the groups to the console
-        console.log("Extracted Groups:", sortedGroups);
-
         const groupsList = sortedGroups.map(groupName => {
+            const groupLessons = lessons.filter(lesson => lesson.group === groupName);
+            const lessonLinks = groupLessons.map(lesson => `
+                <a href="/${contentType}/lesson/${lesson.id}" class="lesson">${lesson.lessonTitle}</a>
+            `).join('');
+
             return `
-                <button onclick="location.href='/${contentType}/group/${encodeURIComponent(groupName)}'" class="group-button bubble">${groupName}</button>
+                <button onclick="location.href='/${contentType}/group/${encodeURIComponent(groupName)}'" class="group-button bubble">
+                    <div class="group-bubble">
+                        <div class="group-header">
+                            <div class="group-name">${groupName}</div>
+                            <div class="divider"></div>
+                            <div class="lessons">${lessonLinks}</div>
+                        </div>
+                    </div>
+                </button>
             `;
         }).join('');
 
@@ -127,19 +137,48 @@ router.get('/', (req, res) => {
                 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
                 <link rel="stylesheet" href="/styles.css">
                 <style>
-                    .bubble {
-                        border-radius: 50%;
-                        padding: 15px 30px;
-                        margin: 10px;
-                        background-color: #4CAF50;
-                        color: white;
-                        border: none;
-                        cursor: pointer;
-                        transition: background-color 0.3s;
-                    }
-                    .bubble:hover {
-                        background-color: #45a049;
-                    }
+                .group-bubble {
+                    display: flex;
+                    flex-direction: column;
+                    border: 1px solid #ccc;
+                    border-radius: 8px;
+                    padding: 16px;
+                    width: 300px; /* Adjust width as needed */
+                    margin: 20px auto; /* Center the bubble */
+                }
+                .group-header {
+                    display: flex;
+                    align-items: center;
+                }
+                .group-name {
+                    font-size: 18px;
+                    font-weight: bold;
+                    flex: 1; /* Take available space */
+                }
+                .divider {
+                    width: 1px;
+                    background-color: #ccc;
+                    height: 30px; /* Adjust height as needed */
+                    margin: 0 8px; /* Space around the divider */
+                }
+                .lessons {
+                    display: grid;
+                    grid-template-columns: repeat(2, 1fr);
+                    gap: 8px; /* Space between lessons */
+                    flex: 2; /* Take available space */
+                }
+                .lesson {
+                    text-decoration: none;
+                    color: #007BFF; /* Link color */
+                    padding: 8px;
+                    border: 1px solid #007BFF;
+                    border-radius: 4px;
+                    text-align: center;
+                    transition: background-color 0.3s;
+                }
+                .lesson:hover {
+                    background-color: #e7f3ff; /* Light blue on hover */
+                }
                 </style>
             </head>
             <body>
@@ -159,7 +198,7 @@ router.get('/', (req, res) => {
                                             <a href="/math3">3rd Grade</a>
                                             <a href="/math4">4th Grade</a>
                                             <a href="/math5">5th Grade</a>
-                                            <a href="/math6">6th Grade</a>
+                                            <a href="/math6">6 th Grade</a>
                                         </div>
                                     </div>
                                 </div>
