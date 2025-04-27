@@ -21,14 +21,14 @@ router.get('/lessons', (req, res) => {
 });
 
 // Endpoint to generate lesson pages
-router.get('/lesson/:id', (req, res) => {
-    const lessonId = req.params.id;
+router.get('/lesson/:index', (req, res) => {
+    const lessonIndex = parseInt(req.params.index, 10); // Get the index from the URL
     fs.readFile(lessonsFilePath, 'utf8', (err, data) => {
         if (err) {
             return res.status(500).send('Error reading lessons file');
         }
         const lessons = JSON.parse(data);
-        const lesson = lessons[lessonId];
+        const lesson = lessons[lessonIndex]; // Use the index to get the lesson
 
         if (!lesson) {
             return res.status(404).send('Lesson not found');
@@ -109,10 +109,10 @@ router.get('/', (req, res) => {
 
         const groupsList = sortedGroups.map(groupName => {
             const groupLessons = lessons.filter(lesson => lesson.group === groupName);
-            const lessonLinks = groupLessons.map(lesson => `
-                <a href="/${contentType}/lesson/${lesson.id}" class="lesson">${lesson.lessonTitle}</a>
+            const lessonLinks = groupLessons.map((lesson, index) => `
+                <a href="/${contentType}/lesson/${index}" class="lesson">${lesson.lessonTitle}</a>
             `).join('');
-
+        
             return `
                 <button onclick="location.href='/${contentType}/group/${encodeURIComponent(groupName)}'" class="group-button bubble">
                     <div class="group-bubble">
@@ -137,29 +137,36 @@ router.get('/', (req, res) => {
                 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
                 <link rel="stylesheet" href="/styles.css">
                 <style>
+                body {
+                    font-family: 'Nunito', sans-serif;
+                }
                 .group-bubble {
                     display: flex;
-                    flex-direction: column;
-                    border: 1px solid #ccc;
-                    border-radius: 8px;
-                    padding: 16px;
-                    width: 300px; /* Adjust width as needed */
-                    margin: 20px auto; /* Center the bubble */
+                    flex-direction: row;
+                    align-items: center;
+                    border-radius: 15px;
+                    padding: 10px;
+                    background-color: #86BFF3;
+                    margin-bottom: 20px;
+                    transition: background-color 0.3s;
+                }
+                .group:hover {
+                    background-color: #68b3f7;
                 }
                 .group-header {
                     display: flex;
                     align-items: center;
                 }
                 .group-name {
-                    font-size: 18px;
-                    font-weight: bold;
-                    flex: 1; /* Take available space */
+                    flex: 1;
+                    font-size: 30px;
+                    margin-right: 10px;
                 }
                 .divider {
-                    width: 1px;
-                    background-color: #ccc;
-                    height: 30px; /* Adjust height as needed */
-                    margin: 0 8px; /* Space around the divider */
+                    width: 1px; /* 90% of the bubble's width */
+                    height: 100%; /* 1 pixel height */
+                    background-color: #2e2d40; /* Color of the line */
+                    margin: 0 10px;
                 }
                 .lessons {
                     display: grid;
@@ -167,17 +174,25 @@ router.get('/', (req, res) => {
                     gap: 8px; /* Space between lessons */
                     flex: 2; /* Take available space */
                 }
-                .lesson {
-                    text-decoration: none;
-                    color: #007BFF; /* Link color */
-                    padding: 8px;
-                    border: 1px solid #007BFF;
-                    border-radius: 4px;
-                    text-align: center;
-                    transition: background-color 0.3s;
+                .lessons {
+                    flex: 2;
                 }
-                .lesson:hover {
-                    background-color: #e7f3ff; /* Light blue on hover */
+                .lessons ul {
+                    list-style-type: none;
+                    padding: 0;
+                    display: grid;
+                    grid-template-columns: repeat(2, 1fr);
+                    gap: 5px;
+                }
+                .lessons li {
+                    margin: 5px 0;
+                }
+                .lessons a {
+                    text-decoration: none;
+                    color: #2e2d40;
+                }
+                .lessons a:hover {
+                    text-decoration: underline;
                 }
                 </style>
             </head>
