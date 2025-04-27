@@ -116,11 +116,9 @@ router.get('/', (req, res) => {
             return `
                 <button onclick="location.href='/${contentType}/group/${encodeURIComponent(groupName)}'" class="group-button bubble">
                     <div class="group-bubble">
-                        <div class="group-header">
-                            <div class="group-name">${groupName}</div>
-                            <div class="divider"></div>
-                            <div class="lessons">${lessonLinks}</div>
-                        </div>
+                        <div class="group-name">${groupName}</div>
+                        <div class="divider"></div>
+                        <div class="lessons">${lessonLinks}</div>
                     </div>
                 </button>
             `;
@@ -152,10 +150,6 @@ router.get('/', (req, res) => {
                 }
                 .group:hover {
                     background-color: #68b3f7;
-                }
-                .group-header {
-                    display: flex;
-                    align-items: center;
                 }
                 .group-name {
                     flex: 1;
