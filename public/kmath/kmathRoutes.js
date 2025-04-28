@@ -117,7 +117,7 @@ router.get('/', (req, res) => {
                 <button onclick="location.href='/${contentType}/group/${encodeURIComponent(groupName)}'" class="group-button bubble">
                     <div class="group-bubble">
                         <div class="group-name">${groupName}</div>
-                        <div class="divider"></div>
+                        <div class="group-divider"></div>
                         <div class="lessons">${lessonLinks}</div>
                     </div>
                 </button>
@@ -156,7 +156,7 @@ router.get('/', (req, res) => {
                     font-size: 30px;
                     margin-right: 10px;
                 }
-                .divider {
+                .group-divider {
                     width: 1px; /* Width of the divider */
                     background-color: #2e2d40; /* Color of the divider */
                     height: 90%; /* Height of the divider */
