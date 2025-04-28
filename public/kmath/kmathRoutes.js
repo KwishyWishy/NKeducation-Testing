@@ -157,16 +157,10 @@ router.get('/', (req, res) => {
                     margin-right: 10px;
                 }
                 .divider {
-                    width: 1px; /* 90% of the bubble's width */
-                    height: 100%; /* 1 pixel height */
-                    background-color: #2e2d40; /* Color of the line */
-                    margin: 0 10px;
-                }
-                .lessons {
-                    display: grid;
-                    grid-template-columns: repeat(2, 1fr);
-                    gap: 8px; /* Space between lessons */
-                    flex: 2; /* Take available space */
+                    width: 1px; /* Width of the divider */
+                    background-color: #2e2d40; /* Color of the divider */
+                    height: 90%; /* Height of the divider */
+                    margin: 0 8px; /* Space around the divider */
                 }
                 .lessons {
                     flex: 2;
