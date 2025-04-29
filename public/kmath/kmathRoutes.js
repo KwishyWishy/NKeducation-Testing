@@ -115,10 +115,14 @@ router.get('/', (req, res) => {
         
             return `
                 <button onclick="location.href='/${contentType}/group/${encodeURIComponent(groupName)}'" class="group-button bubble">
-                    <div class="group-bubble">
+                    <div class="group">
                         <div class="group-name">${groupName}</div>
                         <div class="group-divider"></div>
-                        <div class="lessons">${lessonLinks}</div>
+                        <div class="lessons">
+                            <ul>
+                                ${lessonLinks}
+                            </ul>
+                        </div>
                     </div>
                 </button>
             `;
@@ -138,7 +142,10 @@ router.get('/', (req, res) => {
                 body {
                     font-family: 'Nunito', sans-serif;
                 }
-                .group-bubble {
+                .lessons-page {
+                    padding: 20px;
+                }
+                .group {
                     display: flex;
                     flex-direction: row;
                     align-items: center;
@@ -157,10 +164,10 @@ router.get('/', (req, res) => {
                     margin-right: 10px;
                 }
                 .group-divider {
-                    width: 1px; /* Width of the divider */
-                    background-color: #2e2d40; /* Color of the divider */
-                    height: 90%; /* Height of the divider */
-                    margin: 0 8px; /* Space around the divider */
+                    width: 1px; /* 90% of the bubble's width */
+                    height: 100%; /* 1 pixel height */
+                    background-color: #2e2d40; /* Color of the line */
+                    margin: 0 10px;
                 }
                 .lessons {
                     flex: 2;
@@ -216,8 +223,8 @@ router.get('/', (req, res) => {
                     </nav>
                 </header>
                 <main>
-                    <h1>${contentType} Lessons</h1>
-                    <div class="groups-list">
+                    <h1>Kindergarten Math Lessons</h1>
+                    <div class="lessons-page">
                         ${groupsList}
                     </div>
                 </main>
