@@ -110,11 +110,11 @@ router.get('/', (req, res) => {
         const groupsList = sortedGroups.map(groupName => {
             const groupLessons = lessons.filter(lesson => lesson.group === groupName);
             const lessonLinks = groupLessons.map((lesson, index) => `
-                <a href="/${contentType}/lesson/${index}" class="lesson">${lesson.lessonTitle}</a>
+                <a href="/${contentType}/lesson/${index}">${lesson.lessonTitle}</a>
             `).join('');
         
             return `
-                <button onclick="location.href='/${contentType}/group/${encodeURIComponent(groupName)}'" class="group-button bubble">
+                <button onclick="location.href='/${contentType}/group/${encodeURIComponent(groupName)}'">
                     <div class="group">
                         <div class="group-name">${groupName}</div>
                         <div class="group-divider"></div>
