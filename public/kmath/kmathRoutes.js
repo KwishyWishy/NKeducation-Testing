@@ -21,14 +21,14 @@ router.get('/lessons', (req, res) => {
 });
 
 // Endpoint to generate lesson pages
-router.get('/lesson/:index', (req, res) => {
-    const lessonIndex = parseInt(req.params.index, 10); // Get the index from the URL
+router.get('/lesson/:id', (req, res) => {
+    const lessonId = req.params.id;
     fs.readFile(lessonsFilePath, 'utf8', (err, data) => {
         if (err) {
             return res.status(500).send('Error reading lessons file');
         }
         const lessons = JSON.parse(data);
-        const lesson = lessons[lessonIndex]; // Use the index to get the lesson
+        const lesson = lessons[lessonId];
 
         if (!lesson) {
             return res.status(404).send('Lesson not found');
@@ -103,166 +103,95 @@ router.get('/', (req, res) => {
             return res.status(500).send('Error reading lessons file');
         }
         const lessons = JSON.parse(lessonsData);
-        
-        // Extract unique groups
-        const sortedGroups = [...new Set(lessons.map(lesson => lesson.group))].sort();
 
-        const groupsList = sortedGroups.map(groupName => {
-            const groupLessons = lessons.filter(lesson => lesson.group === groupName);
-            const lessonLinks = groupLessons.map((lesson, index) => `
-                <a href="/${contentType}/lesson/${index}">${lesson.lessonTitle}</a>
-            `).join('');
-        
-            return `
-                <button onclick="location.href='/${contentType}/group/${encodeURIComponent(groupName)}'">
+        fs.readFile(groupsFilePath, 'utf8', (err, groupsData) => {
+            if (err) {
+                return res.status(500).send('Error reading groups file');
+            }
+            const groups = JSON.parse(groupsData);
+
+            const groupMap = {};
+            groups.forEach(group => {
+                groupMap[group.name] = { lessons: [], order: group.order };
+            });
+
+            lessons.forEach((lesson, index) => {
+                if (groupMap[lesson.group]) {
+                    groupMap[lesson.group].lessons.push({ title: lesson.lessonTitle, index });
+                }
+            });
+
+            const sortedGroups = Object.keys(groupMap).sort((a, b) => {
+                return groupMap[a].order - groupMap[b].order;
+            });
+
+            const groupsList = sortedGroups.map(groupName => {
+                const lessonsList = groupMap[groupName].lessons.map(lesson => `
+                    <li><a href="/${contentType}/lesson/${lesson.index}">${lesson.title}</a></li>
+                `).join('');
+                return `
                     <div class="group">
-                        <div class="group-name">${groupName}</div>
-                        <div class="group-divider"></div>
-                        <div class="lessons">
-                            <ul>
-                                ${lessonLinks}
-                            </ul>
-                        </div>
+                        <h2>${groupName}</h2>
+                        <ul>
+                            ${lessonsList}
+                        </ul>
                     </div>
-                </button>
-            `;
-        }).join('');
+                `;
+            }).join('');
 
-        const mainPage = `
-            <!DOCTYPE html>
-            <html lang="en">
-            <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>${contentType} Lessons</title>
-                <link rel="icon" type="image/x-icon" href="/images/tricube-education-favicon.png">
-                <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
-                <link rel="stylesheet" href="/styles.css">
-                <style>
-                body {
-                    font-family: 'Nunito', sans-serif;
-                }
-                .lessons-page {
-                    padding: 20px;
-                }
-                .group {
-                    display: flex;
-                    flex-direction: row;
-                    align-items: center;
-                    border-radius: 15px;
-                    padding: 10px;
-                    background-color: #86BFF3;
-                    margin-bottom: 20px;
-                    transition: background-color 0.3s;
-                }
-                .group:hover {
-                    background-color: #68b3f7;
-                }
-                .group-name {
-                    flex: 1;
-                    font-size: 30px;
-                    margin-right: 10px;
-                }
-                .group-divider {
-                    width: 1px; /* 90% of the bubble's width */
-                    height: 100%; /* 1 pixel height */
-                    background-color: #2e2d40; /* Color of the line */
-                    margin: 0 10px;
-                }
-                .lessons {
-                    flex: 2;
-                }
-                .lessons ul {
-                    list-style-type: none;
-                    padding: 0;
-                    display: grid;
-                    grid-template-columns: repeat(2, 1fr);
-                    gap: 5px;
-                }
-                .lessons li {
-                    margin: 5px 0;
-                }
-                .lessons a {
-                    text-decoration: none;
-                    color: #2e2d40;
-                }
-                .lessons a:hover {
-                    text-decoration: underline;
-                }
-                </style>
-            </head>
-            <body>
+            const mainPage = `
+                <!DOCTYPE html>
+                <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>${contentType.charAt(0).toUpperCase() + contentType.slice(1)} Lessons</title>
+                    <link rel="icon" type="image/x-icon" href="/images/tricube-education-favicon.png">
+                    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+                    <link rel="stylesheet" href="/styles.css">
+                    <style>
+                        body {
+                            font-family: 'Nunito', sans-serif;
+                        }
+                        .lessons-page {
+                            display: grid;
+                            grid-template-columns: repeat(3, 1fr);
+                            grid-template-rows: auto;
+                            gap: 20px;
+                            padding: 20px;
+                        }
+                        .group {
+                            border-radius: 15px;
+                            padding: 10px;
+                            background-color: #86BFF3;
+                            transition: background-color 0.3s;
+                        }
+                        .group:hover {
+                            background-color: #68b3f7;
+                        }
+                        .group h2 {
+                            font-size: 1.5em;
+                            margin-bottom: 10px;
+                        }
+                        .group ul {
+                            list-style-type: none;
+                            padding: 0;
+                        }
+                        .group li {
+                            margin: 5px 0;
+                        }
+                        .group a {
+                            text-decoration: none;
+                            color: #2e2d40;
+                        }
+                        .group a:hover {
+                            text-decoration: underline;
+                        }
+                    </style>
+                </head>
+                <body>
                 <header>
                     <div class="header-left"><a href="/index.html"><img src="/images/tricube-education-logo.png" style="width:145px;height:60px;"alt="TriCube Education"></a></div>
-                    <nav class="header-right">
-                        <ul>
-                            <li class="dropdown">
-                                <button class="nav-button" onclick="location.href='/grade-select.html'">Subjects</button>
-                                <div class="dropdown-content">
-                                    <div class="subject">
-                                        <a href="#">Mathematics</a>
-                                        <div class="course-dropdown">
-                                            <a href="/kmath">Kindergarten</a>
-                                            <a href="/math1">1st Grade</a>
-                                            <a href="/math2">2nd Grade</a>
-                                            <a href="/math3">3rd Grade</a>
-                                            <a href="/math4">4th Grade</a>
-                                            <a href="/math5">5th Grade</a>
-                                            <a href="/math6">6 th Grade</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <button class="nav-button" onclick="location.href='/update-log.html'">Updates</button>
-                            </li>
-                            <li>
-                                <button class="nav-button" onclick="location.href='/about.html'">About</button>
-                            </li>
-                        </ul>
-                    </nav>
-                </header>
-                <main>
-                    <h1>Kindergarten Math Lessons</h1>
-                    <div class="lessons-page">
-                        ${groupsList}
-                    </div>
-                </main>
-            </body>
-            </html>
-        `;
-        res.send(mainPage);
-    });
-});
-
-// Dynamic route for each group
-router.get('/group/:name', (req, res) => {
-    const groupName = req.params.name; 
-    fs.readFile(groupsFilePath, 'utf8', (err, data) => {
-        if (err) {
-            return res.status(500).send('Error reading groups file');
-        }
-        const groups = JSON.parse(data);
-        const group = groups.find(g => g.name === groupName); 
-
-        if (!group) {
-            return res.status(404).send('Group not found');
-        }
-
-        const groupPage = `
-            <!DOCTYPE html>
-            <html lang="en">
-            <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>${groupName} Group</title>
-                <link rel="icon" type="image/x-icon" href="/images/tricube-education-favicon.png">
-                <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
-                <link rel="stylesheet" href="/styles.css">
-            </head>
-            <body>
-                <header>
- <div class="header-left"><a href="/index.html"><img src="/images/tricube-education-logo.png" style="width:145px;height:60px;"alt="TriCube Education"></a></div>
                     <nav class="header-right">
                         <ul>
                             <li class="dropdown">
@@ -292,15 +221,18 @@ router.get('/group/:name', (req, res) => {
                     </nav>
                 </header>
                 <main>
-                    <h1>${groupName} Group</h1>
-                    <p>Welcome to the ${groupName} group page!</p>
-                    <a href="/${contentType}">Back to Lessons</a>
+                    <h1>First Grade Math Lessons</h1>
+                    <div class="lessons-page">
+                        ${groupsList}
+                    </div>
                 </main>
-            </body>
+                </body>
             </html>
-        `;
-        res.send(groupPage);
+            `;
+
+            res.send(mainPage);
+        });
     });
 });
 
-module.exports = router;
+module.exports = router; // Export the router for use in server.js
