@@ -137,7 +137,7 @@ router.get('/', (req, res) => {
                             <div class="divider"></div>
                             <div class="sections">
                                 <ul>
-                                    ${lessonLinks}
+                                    ${lessonsList}
                                 </ul>
                             </div>
                         </div>
