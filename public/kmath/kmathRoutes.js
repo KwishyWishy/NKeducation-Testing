@@ -131,16 +131,18 @@ router.get('/', (req, res) => {
                 `).join('');
                 const encodedGroupName = encodeURIComponent(groupName);
                 return `
-                    <div class="group">
-                        <div class="group-name"><a href="/${contentType}/group/${encodedGroupName}">${groupName}</a></div>
-                        <div class="divider"></div>
-                        <div class="lessons">
-                            <ul>
-                                ${lessonsList}
-                            </ul>
+                    <button onclick="location.href='/${contentType}/group/${encodedGroupName}'">
+                        <div class="group">
+                            <div class="group-name">${groupName}</div>
+                            <div class="divider"></div>
+                            <div class="sections">
+                                <ul>
+                                    ${lessonLinks}
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                `;
+                    </button>
+            `;
             }).join('');
             
             const mainPage = `
@@ -175,32 +177,34 @@ router.get('/', (req, res) => {
                         }
                         .group-name {
                             flex: 1;
-                            font-size: 1.5em;
+                            font-size: 20px;
+                            font-weight: bold;
                             margin-right: 10px;
+
                         }
                         .divider {
                             width: 1px;
                             background-color: #ccc;
                             margin: 0 10px;
                         }
-                        .lessons {
+                        .sections {
                             flex: 2;
                         }
-                        .lessons ul {
+                        .sections ul {
                             list-style-type: none;
                             padding: 0;
                             display: grid;
                             grid-template-columns: repeat(2, 1fr);
                             gap: 5px;
                         }
-                        .lessons li {
+                        .sections li {
                             margin: 5px 0;
                         }
-                        .lessons a {
+                        .sections a {
                             text-decoration: none;
                             color: #2e2d40;
                         }
-                        .lessons a:hover {
+                        .sections a:hover {
                             text-decoration: underline;
                         }
                     </style>
@@ -237,7 +241,7 @@ router.get('/', (req, res) => {
                     </nav>
                 </header>
                 <main>
-                    <h1>First Grade Math Lessons</h1>
+                    <h1>Kindergarten Math Lessons</h1>
                     <div class="lessons-page">
                         ${groupsList}
                     </div>
