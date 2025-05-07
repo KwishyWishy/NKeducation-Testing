@@ -163,34 +163,46 @@ router.get('/', (req, res) => {
                         .group {
                             display: flex;
                             flex-direction: row;
-                            align-items: flex-start;
+                            align-items: stretch;
                             border-radius: 15px;
                             padding: 10px;
                             background-color: #86BFF3;
                             margin-bottom: 20px;
                             transition: background-color 0.3s;
+                            text-decoration: none;
+                            color: inherit;
+                            cursor: pointer;
                         }
                         .group:hover {
                             background-color: #68b3f7;
                         }
                         .group-name {
-                            flex: 1;
+                            flex: 0 0 180px;
+                            display: flex;
+                            align-items: center;
                             font-size: 20px;
                             font-weight: bold;
-                            margin-right: 10px;
-
+                            margin-right: 0;
+                            padding: 0 16px 0 8px;
+                            white-space: nowrap;
+                            background: none;
                         }
                         .divider {
-                            width: 1px;
+                            width: 2px;
                             background-color: #ccc;
-                            margin: 0 10px;
+                            margin: 0 16px;
+                            align-self: stretch;
                         }
                         .sections {
-                            flex: 2;
+                            flex: 1 1 0;
+                            display: flex;
+                            align-items: center;
+                            padding: 0 8px;
                         }
                         .sections ul {
                             list-style-type: none;
                             padding: 0;
+                            margin: 0;
                             display: grid;
                             grid-template-columns: repeat(2, 1fr);
                             gap: 5px;
