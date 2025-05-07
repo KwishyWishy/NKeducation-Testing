@@ -172,6 +172,7 @@ router.get('/', (req, res) => {
                             text-decoration: none;
                             color: inherit;
                             cursor: pointer;
+                            flex-wrap: nowrap;
                         }
                         .group:hover {
                             background-color: #68b3f7;
@@ -198,6 +199,7 @@ router.get('/', (req, res) => {
                             display: flex;
                             align-items: center;
                             padding: 0 8px;
+                            min-width: 0;
                         }
                         .sections ul {
                             list-style-type: none;
@@ -216,7 +218,7 @@ router.get('/', (req, res) => {
                         }
                         .sections a:hover {
                             text-decoration: underline;
-                        }
+                        } 
                     </style>
                 </head>
                 <body>
