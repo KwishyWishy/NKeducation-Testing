@@ -131,15 +131,15 @@ router.get('/', (req, res) => {
                 `).join('');
                 const encodedGroupName = encodeURIComponent(groupName);
                 return `
-                    <a href="/${contentType}/group/${encodedGroupName}" class="group">
-                        <div class="group-name">${groupName}</div>
+                    <div class="group">
+                        <div class="group-name"><a href="/${contentType}/group/${encodedGroupName}">${groupName}</a></div>
                         <div class="divider"></div>
-                        <div class="sections">
+                        <div class="lessons">
                             <ul>
                                 ${lessonsList}
                             </ul>
                         </div>
-                    </a>
+                    </div>
                 `;
             }).join('');
             
@@ -163,69 +163,45 @@ router.get('/', (req, res) => {
                         .group {
                             display: flex;
                             flex-direction: row;
-                            align-items: stretch;
+                            align-items: flex-start;
                             border-radius: 15px;
-                            padding: 20px;
+                            padding: 10px;
                             background-color: #86BFF3;
                             margin-bottom: 20px;
                             transition: background-color 0.3s;
-                            text-decoration: none;
-                            color: inherit;
-                            cursor: pointer;
-                            flex-wrap: nowrap;
                         }
                         .group:hover {
                             background-color: #68b3f7;
                         }
                         .group-name {
-                            flex: 0 0 180px;
-                            display: flex;
-                            align-items: center;
-                            font-size: 20px;
-                            font-weight: bold;
-                            margin-right: 0;
-                            padding: 0 16px 0 8px;
-                            white-space: nowrap;
-                            background: none;
+                            flex: 1;
+                            font-size: 1.5em;
+                            margin-right: 10px;
                         }
                         .divider {
-                            width: 2px;
+                            width: 1px;
                             background-color: #ccc;
-                            margin: 0 16px;
-                            align-self: stretch;
+                            margin: 0 10px;
                         }
-                        .sections {
-                            flex: 1 1 0;
-                            display: flex;
-                            align-items: center;
-                            padding: 0 8px;
-                            min-width: 0;
+                        .lessons {
+                            flex: 2;
                         }
-                        .sections ul {
+                        .lessons ul {
                             list-style-type: none;
                             padding: 0;
-                            margin: 0;
                             display: grid;
                             grid-template-columns: repeat(2, 1fr);
-                            gap: 10px;
-                            width: 100%;
+                            gap: 5px;
                         }
-                        .sections li {
+                        .lessons li {
                             margin: 5px 0;
                         }
-                        .sections a {
+                        .lessons a {
                             text-decoration: none;
                             color: #2e2d40;
-                            display: block;
-                            padding: 5px;
-                            border-radius: 5px;
-                            transition: background-color 0.2s;
-                            position: relative;
-                            z-index: 1;
                         }
-                        .sections a:hover {
-                            background-color: rgba(255, 255, 255, 0.3);
-                            text-decoration: none;
+                        .lessons a:hover {
+                            text-decoration: underline;
                         }
                     </style>
                 </head>
