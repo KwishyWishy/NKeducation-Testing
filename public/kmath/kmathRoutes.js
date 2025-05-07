@@ -134,7 +134,7 @@ router.get('/', (req, res) => {
                     <a href="/${contentType}/group/${encodedGroupName}" class="group">
                         <div class="group-name">${groupName}</div>
                         <div class="divider"></div>
-                        <div class="lessons">
+                        <div class="sections">
                             <ul>
                                 ${lessonsList}
                             </ul>
