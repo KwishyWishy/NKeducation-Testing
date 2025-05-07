@@ -131,16 +131,16 @@ router.get('/', (req, res) => {
                 `).join('');
                 const encodedGroupName = encodeURIComponent(groupName);
                 return `
-                    <div class="group">
-                        <a href="/${contentType}/group/${encodedGroupName}" class="group-name">${groupName}</a>
+                    <a href="/${contentType}/group/${encodedGroupName}" class="group">
+                        <div class="group-name">${groupName}</div>
                         <div class="divider"></div>
                         <div class="lessons">
                             <ul>
                                 ${lessonsList}
                             </ul>
                         </div>
-                    </div>
-            `;
+                    </a>
+                `;
             }).join('');
             
             const mainPage = `
