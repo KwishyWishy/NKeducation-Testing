@@ -165,7 +165,7 @@ router.get('/', (req, res) => {
                             flex-direction: row;
                             align-items: stretch;
                             border-radius: 15px;
-                            padding: 10px;
+                            padding: 20px;
                             background-color: #86BFF3;
                             margin-bottom: 20px;
                             transition: background-color 0.3s;
@@ -207,7 +207,8 @@ router.get('/', (req, res) => {
                             margin: 0;
                             display: grid;
                             grid-template-columns: repeat(2, 1fr);
-                            gap: 5px;
+                            gap: 10px;
+                            width: 100%;
                         }
                         .sections li {
                             margin: 5px 0;
@@ -215,10 +216,17 @@ router.get('/', (req, res) => {
                         .sections a {
                             text-decoration: none;
                             color: #2e2d40;
+                            display: block;
+                            padding: 5px;
+                            border-radius: 5px;
+                            transition: background-color 0.2s;
+                            position: relative;
+                            z-index: 1;
                         }
                         .sections a:hover {
-                            text-decoration: underline;
-                        } 
+                            background-color: rgba(255, 255, 255, 0.3);
+                            text-decoration: none;
+                        }
                     </style>
                 </head>
                 <body>
