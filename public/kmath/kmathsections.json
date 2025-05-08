@@ -1,0 +1,52 @@
+[
+    {
+        "name": "Counting to 100",
+        "group": "Counting & Cardinality",
+        "order": 1
+    },
+    {
+        "name": "Comparing Numbers",
+        "group": "Counting & Cardinality",
+        "order": 2
+    },
+    {
+        "name": "Addition & Subtraction",
+        "group": "Operations & Algebraic Thinking",
+        "order": 1
+    },
+    {
+        "name": "Word Problems",
+        "group": "Operations & Algebraic Thinking",
+        "order": 2
+    },
+    {
+        "name": "Place Value",
+        "group": "Numbers & Operations in Base Ten",
+        "order": 1
+    },
+    {
+        "name": "Number Operations",
+        "group": "Numbers & Operations in Base Ten",
+        "order": 2
+    },
+    {
+        "name": "Measurement",
+        "group": "Measurement & Data",
+        "order": 1
+    },
+    {
+        "name": "Data Analysis",
+        "group": "Measurement & Data",
+        "order": 2
+    },
+    {
+        "name": "Shapes",
+        "group": "Geometry",
+        "order": 1
+    },
+    {
+        "name": "Spatial Relationships",
+        "group": "Geometry",
+        "order": 2
+    }
+]
