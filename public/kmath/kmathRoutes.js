@@ -42,7 +42,7 @@ router.get('/lesson/:id', (req, res) => {
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <title>${lesson.pageTitle}</title>
                 <link rel="icon" type="image/x-icon" href="/images/tricube-education-favicon.png">
-                <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+                <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
                 <link rel="stylesheet" href="/styles.css">
             </head>
             <body>
@@ -151,9 +151,12 @@ router.get('/', (req, res) => {
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
                     <title>${contentType.charAt(0).toUpperCase() + contentType.slice(1)} Lessons</title>
                     <link rel="icon" type="image/x-icon" href="/images/tricube-education-favicon.png">
-                    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+                    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
                     <link rel="stylesheet" href="/styles.css">
                     <style>
+                        * {
+                            font-family: 'Nunito', sans-serif;
+                        }
                         body {
                             font-family: 'Nunito', sans-serif;
                         }
@@ -165,7 +168,7 @@ router.get('/', (req, res) => {
                         .group {
                             display: flex;
                             flex-direction: row;
-                            align-items: flex-start;
+                            align-items: center;
                             border-radius: 15px;
                             padding: 10px;
                             background-color: #86BFF3;
@@ -174,6 +177,7 @@ router.get('/', (req, res) => {
                             width: 100%;
                             border: none;
                             text-align: left;
+                            font-family: 'Nunito', sans-serif;
                         }
                         .group:hover {
                             background-color: #68b3f7;
@@ -182,13 +186,17 @@ router.get('/', (req, res) => {
                             flex: 1;
                             font-size: 1.5em;
                             margin-right: 10px;
+                            font-weight: 700;
+                            display: flex;
+                            align-items: center;
+                            font-family: 'Nunito', sans-serif;
                         }
                         .divider {
-                            width: 1px;
+                            width: 2px;
                             background-color: #ccc;
                             margin: 0 10px;
-                            position: relative;
-                            z-index: 2;
+                            height: 100%;
+                            min-height: 50px;
                         }
                         .lessons {
                             flex: 2;
@@ -199,13 +207,21 @@ router.get('/', (req, res) => {
                             display: grid;
                             grid-template-columns: repeat(2, 1fr);
                             gap: 5px;
+                            margin: 0;
                         }
                         .lessons li {
                             margin: 5px 0;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
                         }
                         .lessons a {
                             text-decoration: none;
                             color: #2e2d40;
+                            width: 100%;
+                            text-align: center;
+                            padding: 5px;
+                            font-family: 'Nunito', sans-serif;
                         }
                         .lessons a:hover {
                             text-decoration: underline;
@@ -280,7 +296,7 @@ router.get('/group/:name', (req, res) => {
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <title>${groupName} Group</title>
                 <link rel="icon" type="image/x-icon" href="/images/tricube-education-favicon.png">
-                <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+                <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
                 <link rel="stylesheet" href="/styles.css">
             </head>
             <body>
