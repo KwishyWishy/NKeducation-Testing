@@ -142,42 +142,35 @@ router.get('/', (req, res) => {
                 });
 
                 const groupsList = sortedGroups.map(groupName => {
-                    const sectionsList = groupMap[groupName].sections.map(section => {
-                        // Get lessons for this section
-                        const sectionLessons = lessons.filter(lesson => lesson.section === section.name);
-                        const lessonsList = sectionLessons.map(lesson => `
-                            <li><a href="/${contentType}/lesson/${lessons.indexOf(lesson)}">${lesson.lessonTitle}</a></li>
-                        `).join('');
-
-                        return `
-                            <div class="section-container">
-                                <div class="section-name" onclick="toggleSection('${section.name}')">${section.name}</div>
-                                <div id="${section.name}" class="section-content collapsed">
-                                    <button class="close-button" onclick="toggleSection('${section.name}')">×</button>
-                                    <h3>${section.name}</h3>
-                                    <ul>
-                                        ${lessonsList}
-                                    </ul>
-                                </div>
-                            </div>
-                        `;
-                    }).join('');
-
-                    // Create a grid of sections (2 per row)
+                    // Get all sections for this group
+                    const groupSections = groupMap[groupName].sections;
+                    // Render sections in a 2-column grid, all inside the group bubble
                     const sectionsGrid = `
-                        <div class="sections-grid">
-                            ${sectionsList}
-                        </div>
+                        <ul class="sections-grid">
+                            ${groupSections.map(section => `
+                                <li>
+                                    <div class="section-name" onclick="toggleSection('${section.name}')">${section.name}</div>
+                                    <div id="${section.name}" class="section-content collapsed">
+                                        <button class="close-button" onclick="toggleSection('${section.name}')">×</button>
+                                        <h3>${section.name}</h3>
+                                        <ul>
+                                            ${lessons.filter(lesson => lesson.section === section.name).map(lesson => `
+                                                <li><a href="/${contentType}/lesson/${lessons.indexOf(lesson)}">${lesson.lessonTitle}</a></li>
+                                            `).join('')}
+                                        </ul>
+                                    </div>
+                                </li>
+                            `).join('')}
+                        </ul>
                     `;
-
                     return `
-                        <button class="group">
-                            <span class="group-name">${groupName}</span>
-                            <span class="divider"></span>
-                            <span class="sections">
+                        <div class="group-bubble">
+                            <div class="group-name">${groupName}</div>
+                            <div class="divider"></div>
+                            <div class="sections">
                                 ${sectionsGrid}
-                            </span>
-                        </button>
+                            </div>
+                        </div>
                     `;
                 }).join('');
 
@@ -200,101 +193,85 @@ router.get('/', (req, res) => {
                             }
                             .lessons-page {
                                 padding: 20px;
-                                max-width: 1200px;
+                                max-width: 900px;
                                 margin: 0 auto;
+                                display: flex;
+                                flex-direction: column;
+                                gap: 30px;
                             }
-                            .group {
+                            .group-bubble {
                                 display: flex;
                                 flex-direction: row;
-                                align-items: center;
+                                align-items: flex-start;
                                 border-radius: 15px;
-                                padding: 10px;
+                                padding: 20px 30px;
                                 background-color: #86BFF3;
-                                margin-bottom: 20px;
-                                transition: background-color 0.3s;
+                                margin: 0 auto;
                                 width: 100%;
-                                border: none;
-                                text-align: left;
-                                font-family: 'Nunito', sans-serif;
-                            }
-                            .group:hover {
-                                background-color: #68b3f7;
+                                max-width: 800px;
+                                min-width: 300px;
+                                box-sizing: border-box;
+                                justify-content: flex-start;
+                                gap: 20px;
                             }
                             .group-name {
-                                width: 200px;
+                                width: 220px;
                                 font-size: 1.5em;
-                                margin-right: 10px;
                                 font-weight: 700;
                                 display: flex;
                                 align-items: center;
                                 justify-content: center;
-                                font-family: 'Nunito', sans-serif;
                                 text-align: center;
+                                margin-right: 10px;
                             }
                             .divider {
                                 width: 2px;
                                 background-color: #ccc;
-                                margin: 0 10px;
                                 height: 100%;
                                 min-height: 50px;
+                                margin: 0 10px;
                             }
                             .sections {
                                 flex: 1;
                                 min-width: 0;
+                                display: flex;
+                                align-items: flex-start;
                             }
                             .sections-grid {
                                 display: grid;
                                 grid-template-columns: repeat(2, 1fr);
                                 gap: 10px;
-                                padding: 10px;
                                 width: 100%;
-                            }
-                            .sections ul {
-                                list-style-type: none;
+                                list-style: none;
                                 padding: 0;
-                                display: grid;
-                                grid-template-columns: repeat(2, 1fr);
-                                gap: 5px;
                                 margin: 0;
                             }
-                            .sections li {
-                                margin: 5px 0;
+                            .sections-grid li {
                                 display: flex;
+                                flex-direction: column;
                                 align-items: center;
-                                justify-content: center;
-                            }
-                            .sections a {
-                                text-decoration: none;
-                                color: #2e2d40;
-                                width: 100%;
-                                text-align: center;
-                                padding: 5px;
-                                font-family: 'Nunito', sans-serif;
-                            }
-                            .sections a:hover {
-                                text-decoration: underline;
-                            }
-                            .section-container {
-                                position: relative;
-                                margin: 5px 0;
+                                justify-content: flex-start;
                             }
                             .section-name {
                                 cursor: pointer;
-                                padding: 5px;
+                                padding: 8px 18px;
                                 text-align: center;
                                 font-weight: 600;
                                 background-color: #fff;
-                                border-radius: 5px;
-                                margin: 2px;
+                                border-radius: 20px;
+                                margin: 2px 0 8px 0;
+                                box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+                                border: 1px solid #e0e0e0;
+                                transition: background 0.2s;
+                                color: #2e2d40;
+                                font-size: 1.1em;
                             }
                             .section-name:hover {
                                 text-decoration: underline;
                                 background-color: #f0f0f0;
                             }
                             .section-content {
-                                position: absolute;
-                                left: 0;
-                                right: 0;
+                                position: relative;
                                 background-color: #fff;
                                 border: 1px solid #ccc;
                                 border-radius: 5px;
@@ -304,6 +281,8 @@ router.get('/', (req, res) => {
                                 transition: max-height 0.5s ease, padding 0.5s ease;
                                 max-height: 500px;
                                 overflow: hidden;
+                                width: 100%;
+                                margin-top: 5px;
                             }
                             .section-content.collapsed {
                                 max-height: 0;
