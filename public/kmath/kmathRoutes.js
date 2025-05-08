@@ -140,15 +140,17 @@ router.get('/', (req, res) => {
                         .sort((a, b) => a.order - b.order)
                         .map(section => `
                             <li class="section-item">
-                                <span class="section-name">${section.name}</span>
-                                <div class="expanding-box">
-                                    <div class="expanding-box-header">
-                                        <h3 class="expanding-box-title">${section.name}</h3>
+                                <span class="section-name" data-section="${section.name}">${section.name}</span>
+                                <div class="expandable-box" id="box-${section.name}">
+                                    <div class="box-header">
+                                        <h3>${section.name}</h3>
                                         <button class="close-button">&times;</button>
                                     </div>
-                                    <div class="expanding-box-content">
+                                    <div class="box-content">
                                         ${section.lessons.map(lesson => `
-                                            <a href="/${contentType}/lesson/${lesson.index}">${lesson.lessonTitle}</a>
+                                            <a href="/${contentType}/lesson/${lesson.index}" class="lesson-link">
+                                                ${lesson.lessonTitle}
+                                            </a>
                                         `).join('')}
                                     </div>
                                 </div>
@@ -254,22 +256,23 @@ router.get('/', (req, res) => {
                             .section-name:hover {
                                 background-color: rgba(255, 255, 255, 0.2);
                             }
-                            .expanding-box {
+                            .expandable-box {
                                 display: none;
                                 position: absolute;
+                                top: 100%;
                                 left: 0;
                                 width: 100%;
                                 background-color: white;
-                                border-radius: 0 0 15px 15px;
-                                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                                border-radius: 10px;
+                                box-shadow: 0 4px 8px rgba(0,0,0,0.1);
                                 z-index: 1000;
-                                padding: 20px;
                                 margin-top: 10px;
+                                padding: 15px;
                             }
-                            .expanding-box.active {
+                            .expandable-box.active {
                                 display: block;
                             }
-                            .expanding-box-header {
+                            .box-header {
                                 display: flex;
                                 justify-content: space-between;
                                 align-items: center;
@@ -277,80 +280,77 @@ router.get('/', (req, res) => {
                                 padding-bottom: 10px;
                                 border-bottom: 1px solid #eee;
                             }
-                            .expanding-box-title {
-                                font-size: 1.2em;
-                                font-weight: bold;
-                                color: #2e2d40;
+                            .box-header h3 {
                                 margin: 0;
+                                font-size: 1.2em;
+                                font-weight: 700;
+                                text-align: center;
+                                flex-grow: 1;
                             }
                             .close-button {
                                 background: none;
                                 border: none;
-                                font-size: 1.2em;
+                                font-size: 1.5em;
                                 cursor: pointer;
+                                padding: 0 5px;
                                 color: #666;
-                                padding: 5px;
-                                line-height: 1;
                             }
                             .close-button:hover {
                                 color: #333;
                             }
-                            .expanding-box-content {
+                            .box-content {
                                 display: grid;
                                 grid-template-columns: repeat(2, 1fr);
                                 gap: 10px;
                             }
-                            .expanding-box-content a {
+                            .lesson-link {
                                 text-decoration: none;
                                 color: #2e2d40;
                                 padding: 8px;
                                 border-radius: 5px;
-                                background-color: #f5f5f5;
+                                background-color: #86BFF3;
                                 transition: background-color 0.2s;
                             }
-                            .expanding-box-content a:hover {
-                                background-color: #e0e0e0;
+                            .lesson-link:hover {
+                                background-color: #68b3f7;
                             }
                         </style>
                         <script>
                             document.addEventListener('DOMContentLoaded', function() {
-                                const sectionItems = document.querySelectorAll('.section-item');
                                 let activeBox = null;
                                 
-                                sectionItems.forEach(item => {
-                                    const sectionName = item.querySelector('.section-name');
-                                    const expandingBox = item.querySelector('.expanding-box');
-                                    const closeButton = expandingBox.querySelector('.close-button');
-                                    
+                                function closeActiveBox() {
+                                    if (activeBox) {
+                                        activeBox.classList.remove('active');
+                                        activeBox = null;
+                                    }
+                                }
+                                
+                                document.querySelectorAll('.section-name').forEach(sectionName => {
                                     sectionName.addEventListener('click', function(e) {
                                         e.stopPropagation();
+                                        const box = document.getElementById('box-' + this.dataset.section);
                                         
-                                        if (activeBox && activeBox !== expandingBox) {
-                                            activeBox.classList.remove('active');
-                                        }
-                                        
-                                        if (expandingBox.classList.contains('active')) {
-                                            expandingBox.classList.remove('active');
-                                            activeBox = null;
+                                        if (activeBox === box) {
+                                            closeActiveBox();
                                         } else {
-                                            expandingBox.classList.add('active');
-                                            activeBox = expandingBox;
+                                            closeActiveBox();
+                                            box.classList.add('active');
+                                            activeBox = box;
                                         }
                                     });
-                                    
-                                    closeButton.addEventListener('click', function(e) {
+                                });
+                                
+                                document.querySelectorAll('.close-button').forEach(button => {
+                                    button.addEventListener('click', function(e) {
                                         e.stopPropagation();
-                                        expandingBox.classList.remove('active');
-                                        activeBox = null;
+                                        closeActiveBox();
                                     });
                                 });
                                 
                                 document.addEventListener('click', function(e) {
                                     if (!e.target.closest('.section-item')) {
-                                        if (activeBox) {
-                                            activeBox.classList.remove('active');
-                                            activeBox = null;
-                                        }
+                                        closeActiveBox();
                                     }
                                 });
                             });
