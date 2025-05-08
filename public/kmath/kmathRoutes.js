@@ -189,7 +189,9 @@ router.get('/', (req, res) => {
                             font-weight: 700;
                             display: flex;
                             align-items: center;
+                            justify-content: center;
                             font-family: 'Nunito', sans-serif;
+                            text-align: center;
                         }
                         .divider {
                             width: 2px;
