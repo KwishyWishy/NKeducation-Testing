@@ -163,12 +163,19 @@ router.get('/', (req, res) => {
                         `;
                     }).join('');
 
+                    // Create a grid of sections (2 per row)
+                    const sectionsGrid = `
+                        <div class="sections-grid">
+                            ${sectionsList}
+                        </div>
+                    `;
+
                     return `
                         <button class="group">
                             <span class="group-name">${groupName}</span>
                             <span class="divider"></span>
                             <span class="sections">
-                                ${sectionsList}
+                                ${sectionsGrid}
                             </span>
                         </button>
                     `;
@@ -214,7 +221,7 @@ router.get('/', (req, res) => {
                                 background-color: #68b3f7;
                             }
                             .group-name {
-                                flex: 1;
+                                width: 200px;
                                 font-size: 1.5em;
                                 margin-right: 10px;
                                 font-weight: 700;
@@ -232,7 +239,15 @@ router.get('/', (req, res) => {
                                 min-height: 50px;
                             }
                             .sections {
-                                flex: 2;
+                                flex: 1;
+                                min-width: 0;
+                            }
+                            .sections-grid {
+                                display: grid;
+                                grid-template-columns: repeat(2, 1fr);
+                                gap: 10px;
+                                padding: 10px;
+                                width: 100%;
                             }
                             .sections ul {
                                 list-style-type: none;
@@ -268,9 +283,13 @@ router.get('/', (req, res) => {
                                 padding: 5px;
                                 text-align: center;
                                 font-weight: 600;
+                                background-color: #fff;
+                                border-radius: 5px;
+                                margin: 2px;
                             }
                             .section-name:hover {
                                 text-decoration: underline;
+                                background-color: #f0f0f0;
                             }
                             .section-content {
                                 position: absolute;
