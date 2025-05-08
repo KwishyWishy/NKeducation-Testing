@@ -159,6 +159,8 @@ router.get('/', (req, res) => {
                         }
                         .lessons-page {
                             padding: 20px;
+                            max-width: 1200px;
+                            margin: 0 auto;
                         }
                         .group {
                             display: flex;
@@ -169,6 +171,9 @@ router.get('/', (req, res) => {
                             background-color: #86BFF3;
                             margin-bottom: 20px;
                             transition: background-color 0.3s;
+                            width: 100%;
+                            border: none;
+                            text-align: left;
                         }
                         .group:hover {
                             background-color: #68b3f7;
