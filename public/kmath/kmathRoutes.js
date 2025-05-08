@@ -131,16 +131,15 @@ router.get('/', (req, res) => {
                 `).join('');
                 const encodedGroupName = encodeURIComponent(groupName);
                 return `
-                    <div class="group">
-                        <a href="/${contentType}/group/${encodedGroupName}" class="group-link">${groupName}</a>
-                        <div class="group-name"></div>
-                        <div class="divider"></div>
-                        <div class="lessons">
+                    <button onclick="location.href='/${contentType}/group/${encodedGroupName}'" class="group">
+                        <span class="group-name">${groupName}</span>
+                        <span class="divider"></span>
+                        <span class="lessons">
                             <ul>
                                 ${lessonsList}
                             </ul>
-                        </div>
-                    </div>
+                        </span>
+                    </button>
                 `;
             }).join('');
             
@@ -170,28 +169,14 @@ router.get('/', (req, res) => {
                             background-color: #86BFF3;
                             margin-bottom: 20px;
                             transition: background-color 0.3s;
-                            position: relative;
-                            cursor: pointer;
                         }
                         .group:hover {
                             background-color: #68b3f7;
-                        }
-                        .group-link {
-                            position: absolute;
-                            top: 0;
-                            left: 0;
-                            width: 100%;
-                            height: 100%;
-                            z-index: 1;
-                            text-decoration: none;
-                            color: transparent;
                         }
                         .group-name {
                             flex: 1;
                             font-size: 1.5em;
                             margin-right: 10px;
-                            position: relative;
-                            z-index: 2;
                         }
                         .divider {
                             width: 1px;
@@ -202,8 +187,6 @@ router.get('/', (req, res) => {
                         }
                         .lessons {
                             flex: 2;
-                            position: relative;
-                            z-index: 2;
                         }
                         .lessons ul {
                             list-style-type: none;
@@ -218,8 +201,6 @@ router.get('/', (req, res) => {
                         .lessons a {
                             text-decoration: none;
                             color: #2e2d40;
-                            position: relative;
-                            z-index: 2;
                         }
                         .lessons a:hover {
                             text-decoration: underline;
