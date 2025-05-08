@@ -8,7 +8,6 @@ const router = express.Router();
 const contentType = 'kmath';
 const lessonsFilePath = path.join(__dirname, 'kmathlessons.json');
 const groupsFilePath = path.join(__dirname, 'kmathgroups.json');
-const sectionsFilePath = path.join(__dirname, 'kmathsections.json'); // New sections file
 
 // Endpoint to get lessons
 router.get('/lessons', (req, res) => {
@@ -101,218 +100,178 @@ router.get('/lesson/:id', (req, res) => {
 router.get('/', (req, res) => {
     fs.readFile(lessonsFilePath, 'utf8', (err, lessonsData) => {
         if (err) {
-            return res.status(500 ).send('Error reading lessons file');
+            return res.status(500).send('Error reading lessons file');
         }
         const lessons = JSON.parse(lessonsData);
 
-        fs.readFile(groupsFilePath, 'utf8', (err, groupsData) => {
+        fs.readFile(groupsFilePath, 'utf8', (err, groupsData ) => {
             if (err) {
                 return res.status(500).send('Error reading groups file');
             }
             const groups = JSON.parse(groupsData);
 
-            fs.readFile(sectionsFilePath, 'utf8', (err, sectionsData) => { // Read sections file
-                if (err) {
-                    return res.status(500).send('Error reading sections file');
+            const groupMap = {};
+            groups.forEach(group => {
+                groupMap[group.name] = { lessons: [], order: group.order };
+            });
+
+            lessons.forEach((lesson, index) => {
+                if (groupMap[lesson.group]) {
+                    groupMap[lesson.group].lessons.push({ title: lesson.lessonTitle, index });
                 }
-                const sections = JSON.parse(sectionsData);
+            });
 
-                const groupMap = {};
-                groups.forEach(group => {
-                    groupMap[group.name] = { lessons: [], sections: [], order: group.order };
-                });
+            const sortedGroups = Object.keys(groupMap).sort((a, b) => {
+                return groupMap[a].order - groupMap[b].order;
+            });
 
-                lessons.forEach((lesson, index) => {
-                    if (groupMap[lesson.group]) {
-                        groupMap[lesson.group].lessons.push({ title: lesson.lessonTitle, index });
-                        groupMap[lesson.group].sections.push(lesson.section); // Assign section to group
-                    }
-                });
-
-                const sortedGroups = Object.keys(groupMap).sort((a, b) => {
-                    return groupMap[a].order - groupMap[b].order;
-                });
-
-                const groupsList = sortedGroups.map(groupName => {
-                    const lessonsList = groupMap[groupName].lessons.map(lesson => `
-                        <li><a href="/${contentType}/lesson/${lesson.index}">${lesson.title}</a></li>
-                    `).join('');
-
-                    const sectionsList = sections.map(section => `
-                        <button class="section" onclick="toggleSection('${section.name}')">${section.name}</button>
-                        <div id="${section.name}" class="collapsible" style="display:none;">
+            const groupsList = sortedGroups.map(groupName => {
+                const lessonsList = groupMap[groupName].lessons.map(lesson => `
+                    <li><a href="/${contentType}/lesson/${lesson.index}">${lesson.title}</a></li>
+                `).join('');
+                const encodedGroupName = encodeURIComponent(groupName);
+                return `
+                    <button onclick="location.href='/${contentType}/group/${encodedGroupName}'" class="group">
+                        <span class="group-name">${groupName}</span>
+                        <span class="divider"></span>
+                        <span class="lessons">
                             <ul>
-                                ${groupMap[groupName].lessons.filter(lesson => lesson.section === section.name).map(lesson => `
-                                    <li><a href="/${contentType}/lesson/${lesson.index}">${lesson.title}</a></li>
-                                `).join('')}
+                                ${lessonsList}
                             </ul>
-                        </div>
-                    `).join('');
-
-                    return `
-                        <button onclick="location.href='/${contentType}/group/${encodeURIComponent(groupName)}'" class="group">
-                            <span class="group-name">${groupName}</span>
-                            <span class="divider"></span>
-                            <span class="lessons">
-                                <ul>
-                                    ${lessonsList}
-                                </ul>
-                            </span>
-                        </button>
-                        <div class="sections">
-                            ${sectionsList}
-                        </div>
-                    `;
-                }).join('');
-
-                const mainPage = `
-                    <!DOCTYPE html>
-                    <html lang="en">
-                    <head>
-                        <meta charset="UTF-8">
-                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                        <title>${contentType.charAt(0).toUpperCase() + contentType.slice(1)} Lessons</title>
-                        <link rel="icon" type="image/x-icon" href="/images/tricube-education-favicon.png">
-                        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-                        <link rel="stylesheet" href="/styles.css">
-                        <style>
-                            * {
-                                font-family: 'Nunito', sans-serif;
-                            }
-                            body {
-                                font-family: 'Nunito', sans-serif;
-                            }
-                            .lessons-page {
-                                padding: 20px;
-                                max-width: 1200px;
-                                margin: 0 auto;
-                            }
-                            .group {
-                                display: flex;
-                                flex-direction: row;
-                                align-items: center;
-                                border-radius: 15px;
-                                padding: 10px;
-                                background-color: #86BFF3;
-                                margin-bottom: 20px;
-                                transition: background-color 0.3s;
-                                width: 100%;
-                                border: none;
-                                text-align: left;
-                                font-family: 'Nunito', sans-serif;
-                            }
-                            .group:hover {
-                                background-color: #68b3f7;
-                            }
-                            .group-name {
-                                flex: 1;
-                                font-size: 1.5em;
-                                margin-right: 10px;
-                                font-weight: 700;
-                                display: flex;
-                                align-items: center;
-                                justify-content: center;
-                                font-family: 'Nunito', sans-serif;
-                                text-align: center;
-                            }
-                            .divider {
-                                width: 2px;
-                                background-color: #ccc;
-                                margin: 0 10px;
-                                height: 100%;
-                                min-height: 50px;
-                            }
-                            .lessons {
-                                flex: 2;
-                            }
-                            .lessons ul {
-                                list-style-type: none;
-                                padding: 0;
-                                display: grid;
-                                grid-template-columns : repeat(2, 1fr);
-                                gap: 5px;
-                                margin: 0;
-                            }
-                            .lessons li {
-                                margin: 5px 0;
-                                display: flex;
-                                align-items: center;
-                                justify-content: center;
-                            }
-                            .lessons a {
-                                text-decoration: none;
-                                color: #2e2d40;
-                                width: 100%;
-                                text-align: center;
-                                padding: 5px;
-                                font-family: 'Nunito', sans-serif;
-                            }
-                            .lessons a:hover {
-                                text-decoration: underline;
-                            }
-                            .collapsible {
-                                padding: 10px;
-                                background-color: #f1f1f1;
-                                border-radius: 5px;
-                                margin-top: 10px;
-                            }
-                        </style>
-                        <script>
-                            function toggleSection(sectionName) {
-                                const section = document.getElementById(sectionName);
-                                const allSections = document.querySelectorAll('.collapsible');
-                                allSections.forEach(s => {
-                                    if (s !== section) {
-                                        s.style.display = 'none';
-                                    }
-                                });
-                                section.style.display = section.style.display === 'none' ? 'block' : 'none';
-                            }
-                        </script>
-                    </head>
-                    <body>
-                    <header>
-                        <div class="header-left"><a href="/index.html"><img src="/images/tricube-education-logo.png" style="width:145px;height:60px;"alt="TriCube Education"></a></div>
-                        <nav class="header-right">
-                            <ul>
-                                <li class="dropdown">
-                                    <button class="nav-button" onclick="location.href='/grade-select.html'">Subjects</button>
-                                    <div class="dropdown-content">
-                                        <div class="subject">
-                                            <a href="#">Mathematics</a>
-                                            <div class="course-dropdown">
-                                                <a href="/kmath">Kindergarten</a>
-                                                <a href="/math1">1st Grade</a>
-                                                <a href="/math2">2nd Grade</a>
-                                                <a href="/math3">3rd Grade</a>
-                                                <a href="/math4">4th Grade</a>
-                                                <a href="/math5">5th Grade</a>
-                                                <a href="/math6">6th Grade</a>
-                                            </div>
+                        </span>
+                    </button>
+                `;
+            }).join('');
+            
+            const mainPage = `
+                <!DOCTYPE html>
+                <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>${contentType.charAt(0).toUpperCase() + contentType.slice(1)} Lessons</title>
+                    <link rel="icon" type="image/x-icon" href="/images/tricube-education-favicon.png">
+                    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+                    <link rel="stylesheet" href="/styles.css">
+                    <style>
+                        * {
+                            font-family: 'Nunito', sans-serif;
+                        }
+                        body {
+                            font-family: 'Nunito', sans-serif;
+                        }
+                        .lessons-page {
+                            padding: 20px;
+                            max-width: 1200px;
+                            margin: 0 auto;
+                        }
+                        .group {
+                            display: flex;
+                            flex-direction: row;
+                            align-items: center;
+                            border-radius: 15px;
+                            padding: 10px;
+                            background-color: #86BFF3;
+                            margin-bottom: 20px;
+                            transition: background-color 0.3s;
+                            width: 100%;
+                            border: none;
+                            text-align: left;
+                            font-family: 'Nunito', sans-serif;
+                        }
+                        .group:hover {
+                            background-color: #68b3f7;
+                        }
+                        .group-name {
+                            flex: 1;
+                            font-size: 1.5em;
+                            margin-right: 10px;
+                            font-weight: 700;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-family: 'Nunito', sans-serif;
+                            text-align: center;
+                        }
+                        .divider {
+                            width: 2px;
+                            background-color: #ccc;
+                            margin: 0 10px;
+                            height: 100%;
+                            min-height: 50px;
+                        }
+                        .lessons {
+                            flex: 2;
+                        }
+                        .lessons ul {
+                            list-style-type: none;
+                            padding: 0;
+                            display: grid;
+                            grid-template-columns: repeat(2, 1fr);
+                            gap: 5px;
+                            margin: 0;
+                        }
+                        .lessons li {
+                            margin: 5px 0;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                        }
+                        .lessons a {
+                            text-decoration: none;
+                            color: #2e2d40;
+                            width: 100%;
+                            text-align: center;
+                            padding: 5px;
+                            font-family: 'Nunito', sans-serif;
+                        }
+                        .lessons a:hover {
+                            text-decoration: underline;
+                        }
+                    </style>
+                </head>
+                <body>
+                <header>
+                    <div class="header-left"><a href="/index.html"><img src="/images/tricube-education-logo.png" style="width:145px;height:60px;"alt="TriCube Education"></a></div>
+                    <nav class="header-right">
+                        <ul>
+                            <li class="dropdown">
+                                <button class="nav-button" onclick="location.href='/grade-select.html'">Subjects</button>
+                                <div class="dropdown-content">
+                                    <div class="subject">
+                                        <a href="#">Mathematics</a>
+                                        <div class="course-dropdown">
+                                            <a href="/kmath">Kindergarten</a>
+                                            <a href="/math1">1st Grade</a>
+                                            <a href="/math2">2nd Grade</a>
+                                            <a href="/math3">3rd Grade</a>
+                                            <a href="/math4">4th Grade</a>
+                                            <a href="/math5">5th Grade</a>
+                                            <a href="/math6">6th Grade</a>
                                         </div>
                                     </div>
-                                </li>
-                                <li>
-                                    <button class="nav-button" onclick="location.href='/update-log.html'">Updates</button>
-                                </li>
-                                <li>
-                                    <button class="nav-button" onclick="location.href='/about.html'">About</button>
-                                </li>
-                            </ul>
-                        </nav>
-                    </header>
-                    <main>
-                        <h1>Kindergarten Math Lessons</h1>
-                        <div class="lessons-page">
-                            ${groupsList}
-                        </div>
-                    </main>
-                    </body>
-                    </html>
-                `;
+                                </div>
+                            </li>
+                            <li>
+                                <button class="nav-button" onclick="location.href='/update-log.html'">Updates</button>
+                            </li>
+                            <li>
+                                <button class="nav-button" onclick="location.href='/about.html'">About</button>
+                            </li>
+                        </ul>
+                    </nav>
+                </header>
+                <main>
+                    <h1>Kindergarten Math Lessons</h1>
+                    <div class="lessons-page">
+                        ${groupsList}
+                    </div>
+                </main>
+                </body>
+            </html>
+            `;
 
-                res.send(mainPage);
-            });
+            res.send(mainPage);
         });
     });
 });
@@ -352,14 +311,15 @@ router.get('/group/:name', (req, res) => {
                                 <div class="dropdown-content">
                                     <div class="subject">
                                         <a href="#">Mathematics</a>
-                                        <div class ="course-dropdown">
-                                        <a href="/kmath">Kindergarten</a>
-                                        <a href="/math1">1st Grade</a>
-                                        <a href="/math2">2nd Grade</a>
-                                        <a href="/math3">3rd Grade</a>
-                                        <a href="/math4">4th Grade</a>
-                                        <a href="/math5">5th Grade</a>
-                                        <a href="/math6">6th Grade</a>
+                                        <div class="course-dropdown">
+                                            <a href="/kmath">Kindergarten</a>
+                                            <a href="/math1">1st Grade</a>
+                                            <a href="/math2">2nd Grade</a>
+                                            <a href="/math3">3rd Grade</a>
+                                            <a href="/math4">4th Grade</a>
+                                            <a href="/math5">5th Grade</a>
+                                            <a href="/math6">6th Grade</a>
+                                        </div>
                                     </div>
                                 </div>
                             </li>
@@ -384,4 +344,4 @@ router.get('/group/:name', (req, res) => {
     });
 });
 
-module.exports = router; // Export the router for use in server.js 
+module.exports = router; // Export the router for use in server.js
