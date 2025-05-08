@@ -141,12 +141,16 @@ router.get('/', (req, res) => {
                         .map(section => `
                             <li class="section-item">
                                 <span class="section-name">${section.name}</span>
-                                <div class="section-dropdown">
-                                    <ul>
+                                <div class="expanding-box">
+                                    <div class="expanding-box-header">
+                                        <h3 class="expanding-box-title">${section.name}</h3>
+                                        <button class="close-button">&times;</button>
+                                    </div>
+                                    <div class="expanding-box-content">
                                         ${section.lessons.map(lesson => `
-                                            <li><a href="/${contentType}/lesson/${lesson.index}">${lesson.lessonTitle}</a></li>
+                                            <a href="/${contentType}/lesson/${lesson.index}">${lesson.lessonTitle}</a>
                                         `).join('')}
-                                    </ul>
+                                    </div>
                                 </div>
                             </li>
                         `).join('');
@@ -250,67 +254,103 @@ router.get('/', (req, res) => {
                             .section-name:hover {
                                 background-color: rgba(255, 255, 255, 0.2);
                             }
-                            .section-dropdown {
+                            .expanding-box {
                                 display: none;
                                 position: absolute;
-                                top: 100%;
                                 left: 0;
+                                width: 100%;
                                 background-color: white;
-                                border-radius: 5px;
-                                box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+                                border-radius: 0 0 15px 15px;
+                                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
                                 z-index: 1000;
-                                min-width: 200px;
+                                padding: 20px;
+                                margin-top: 10px;
                             }
-                            .section-dropdown.active {
+                            .expanding-box.active {
                                 display: block;
                             }
-                            .section-dropdown ul {
-                                display: block;
-                                padding: 10px;
+                            .expanding-box-header {
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: center;
+                                margin-bottom: 15px;
+                                padding-bottom: 10px;
+                                border-bottom: 1px solid #eee;
                             }
-                            .section-dropdown li {
-                                margin: 5px 0;
+                            .expanding-box-title {
+                                font-size: 1.2em;
+                                font-weight: bold;
+                                color: #2e2d40;
+                                margin: 0;
                             }
-                            .section-dropdown a {
+                            .close-button {
+                                background: none;
+                                border: none;
+                                font-size: 1.2em;
+                                cursor: pointer;
+                                color: #666;
+                                padding: 5px;
+                                line-height: 1;
+                            }
+                            .close-button:hover {
+                                color: #333;
+                            }
+                            .expanding-box-content {
+                                display: grid;
+                                grid-template-columns: repeat(2, 1fr);
+                                gap: 10px;
+                            }
+                            .expanding-box-content a {
                                 text-decoration: none;
                                 color: #2e2d40;
-                                display: block;
-                                padding: 5px;
+                                padding: 8px;
                                 border-radius: 5px;
+                                background-color: #f5f5f5;
+                                transition: background-color 0.2s;
                             }
-                            .section-dropdown a:hover {
-                                background-color: #f0f0f0;
+                            .expanding-box-content a:hover {
+                                background-color: #e0e0e0;
                             }
                         </style>
                         <script>
                             document.addEventListener('DOMContentLoaded', function() {
                                 const sectionItems = document.querySelectorAll('.section-item');
+                                let activeBox = null;
                                 
                                 sectionItems.forEach(item => {
                                     const sectionName = item.querySelector('.section-name');
-                                    const dropdown = item.querySelector('.section-dropdown');
+                                    const expandingBox = item.querySelector('.expanding-box');
+                                    const closeButton = expandingBox.querySelector('.close-button');
                                     
                                     sectionName.addEventListener('click', function(e) {
                                         e.stopPropagation();
-                                        dropdown.classList.toggle('active');
-                                    });
-                                    
-                                    sectionName.addEventListener('mouseenter', function() {
-                                        dropdown.classList.add('active');
-                                    });
-                                    
-                                    item.addEventListener('mouseleave', function() {
-                                        if (!dropdown.classList.contains('active')) {
-                                            dropdown.classList.remove('active');
+                                        
+                                        if (activeBox && activeBox !== expandingBox) {
+                                            activeBox.classList.remove('active');
                                         }
+                                        
+                                        if (expandingBox.classList.contains('active')) {
+                                            expandingBox.classList.remove('active');
+                                            activeBox = null;
+                                        } else {
+                                            expandingBox.classList.add('active');
+                                            activeBox = expandingBox;
+                                        }
+                                    });
+                                    
+                                    closeButton.addEventListener('click', function(e) {
+                                        e.stopPropagation();
+                                        expandingBox.classList.remove('active');
+                                        activeBox = null;
                                     });
                                 });
                                 
                                 document.addEventListener('click', function(e) {
                                     if (!e.target.closest('.section-item')) {
-                                        document.querySelectorAll('.section-dropdown').forEach(dropdown => {
-                                            dropdown.classList.remove('active');
-                                        });
+                                        if (activeBox) {
+                                            activeBox.classList.remove('active');
+                                            activeBox = null;
+                                        }
                                     }
                                 });
                             });
