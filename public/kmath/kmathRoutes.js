@@ -167,8 +167,10 @@ router.get('/', (req, res) => {
                     return `
                         <a href="/${contentType}/group/${encodedGroupName}" class="group-bubble-link">
                             <div class="group-bubble">
-                                <div class="group-name">${groupName}</div>
-                                <div class="divider"></div>
+                                <div class="group-header">
+                                    <div class="group-name">${groupName}</div>
+                                    <div class="divider"></div>
+                                </div>
                                 <div class="sections">
                                     ${sectionsGrid}
                                 </div>
@@ -202,43 +204,53 @@ router.get('/', (req, res) => {
                                 flex-direction: column;
                                 gap: 30px;
                             }
+                            .group-bubble-link {
+                                text-decoration: none;
+                                color: inherit;
+                                display: block;
+                                width: 100%;
+                            }
                             .group-bubble {
                                 display: flex;
-                                flex-direction: row;
-                                align-items: flex-start;
+                                flex-direction: column;
+                                align-items: center;
                                 border-radius: 15px;
-                                padding: 20px 30px;
+                                padding: 30px 40px 30px 40px;
                                 background-color: #86BFF3;
                                 margin: 0 auto;
                                 width: 100%;
                                 max-width: 1200px;
                                 min-width: 300px;
                                 box-sizing: border-box;
-                                justify-content: flex-start;
+                                gap: 20px;
+                            }
+                            .group-header {
+                                display: flex;
+                                flex-direction: row;
+                                align-items: center;
+                                justify-content: center;
+                                width: 100%;
+                                margin-bottom: 20px;
                                 gap: 20px;
                             }
                             .group-name {
-                                width: 220px;
                                 font-size: 1.5em;
                                 font-weight: 700;
-                                display: flex;
-                                align-items: center;
-                                justify-content: center;
                                 text-align: center;
-                                margin-right: 10px;
+                                flex-shrink: 0;
+                                padding: 0 10px;
                             }
                             .divider {
                                 width: 2px;
                                 background-color: #ccc;
-                                height: 100%;
-                                min-height: 50px;
+                                height: 40px;
+                                min-height: 40px;
                                 margin: 0 10px;
                             }
                             .sections {
-                                flex: 1;
-                                min-width: 0;
+                                width: 100%;
                                 display: flex;
-                                align-items: flex-start;
+                                justify-content: center;
                             }
                             .sections-grid {
                                 display: grid;
@@ -260,6 +272,7 @@ router.get('/', (req, res) => {
                                 padding: 8px 18px;
                                 text-align: center;
                                 font-weight: 600;
+                                background-color: #fff;
                                 border-radius: 20px;
                                 margin: 2px 0 8px 0;
                                 box-shadow: 0 1px 3px rgba(0,0,0,0.07);
@@ -270,6 +283,7 @@ router.get('/', (req, res) => {
                             }
                             .section-name:hover {
                                 text-decoration: underline;
+                                background-color: #f0f0f0;
                             }
                             .section-content {
                                 position: relative;
@@ -283,6 +297,7 @@ router.get('/', (req, res) => {
                                 overflow: hidden;
                                 width: 100%;
                                 margin-top: 5px;
+                                background: #fff;
                             }
                             .section-content.collapsed {
                                 max-height: 0;
@@ -307,12 +322,6 @@ router.get('/', (req, res) => {
                             }
                             .section-content .close-button:hover {
                                 color: #666;
-                            }
-                            .group-bubble-link {
-                                text-decoration: none;
-                                color: inherit;
-                                display: block;
-                                width: 100%;
                             }
                         </style>
                         <script>
