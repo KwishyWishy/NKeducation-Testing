@@ -43,7 +43,7 @@ router.get('/lesson/:id', (req, res) => {
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <title>${lesson.pageTitle}</title>
                 <link rel="icon" type="image/x-icon" href="/images/tricube-education-favicon.png">
-                <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+                https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,600;1,600&display=swap
                 <link rel="stylesheet" href="/styles.css">
             </head>
             <body>
@@ -182,7 +182,7 @@ router.get('/', (req, res) => {
                         <meta name="viewport" content="width=device-width, initial-scale=1.0">
                         <title>${contentType.charAt(0).toUpperCase() + contentType.slice(1)} Lessons</title>
                         <link rel="icon" type="image/x-icon" href="/images/tricube-education-favicon.png">
-                        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+                        https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,600;1,600&display=swap
                         <link rel="stylesheet" href="/styles.css">
                         <style>
                             * {
@@ -193,7 +193,7 @@ router.get('/', (req, res) => {
                             }
                             .lessons-page {
                                 padding: 20px;
-                                max-width: 900px;
+                                max-width: 1200px;
                                 margin: 0 auto;
                                 display: flex;
                                 flex-direction: column;
@@ -268,11 +268,10 @@ router.get('/', (req, res) => {
                             }
                             .section-name:hover {
                                 text-decoration: underline;
-                                background-color: #f0f0f0;
+                                background-color: #68b3f7;
                             }
                             .section-content {
                                 position: relative;
-                                background-color: #fff;
                                 border: 1px solid #ccc;
                                 border-radius: 5px;
                                 padding: 15px;
@@ -439,7 +438,7 @@ router.get('/group/:name', (req, res) => {
                         <meta name="viewport" content="width=device-width, initial-scale=1.0">
                         <title>${groupName} Group</title>
                         <link rel="icon" type="image/x-icon" href="/images/tricube-education-favicon.png">
-                        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+                        https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,600;1,600&display=swap
                         <link rel="stylesheet" href="/styles.css">
                         <style>
                             .sections-row {
