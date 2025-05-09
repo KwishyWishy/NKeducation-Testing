@@ -43,7 +43,7 @@ router.get('/lesson/:id', (req, res) => {
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <title>${lesson.pageTitle}</title>
                 <link rel="icon" type="image/x-icon" href="/images/tricube-education-favicon.png">
-                https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,600;1,600&display=swap
+                <link https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,600;1,600&display=swap>
                 <link rel="stylesheet" href="/styles.css">
             </head>
             <body>
@@ -144,6 +144,7 @@ router.get('/', (req, res) => {
                 const groupsList = sortedGroups.map(groupName => {
                     // Get all sections for this group
                     const groupSections = groupMap[groupName].sections;
+                    const encodedGroupName = encodeURIComponent(groupName);
                     // Render sections in a 2-column grid, all inside the group bubble
                     const sectionsGrid = `
                         <ul class="sections-grid">
@@ -164,13 +165,15 @@ router.get('/', (req, res) => {
                         </ul>
                     `;
                     return `
-                        <div class="group-bubble">
-                            <div class="group-name">${groupName}</div>
-                            <div class="divider"></div>
-                            <div class="sections">
-                                ${sectionsGrid}
+                        <a href="/${contentType}/group/${encodedGroupName}" class="group-bubble-link">
+                            <div class="group-bubble">
+                                <div class="group-name">${groupName}</div>
+                                <div class="divider"></div>
+                                <div class="sections">
+                                    ${sectionsGrid}
+                                </div>
                             </div>
-                        </div>
+                        </a>
                     `;
                 }).join('');
 
@@ -182,7 +185,7 @@ router.get('/', (req, res) => {
                         <meta name="viewport" content="width=device-width, initial-scale=1.0">
                         <title>${contentType.charAt(0).toUpperCase() + contentType.slice(1)} Lessons</title>
                         <link rel="icon" type="image/x-icon" href="/images/tricube-education-favicon.png">
-                        https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,600;1,600&display=swap
+                        <link https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,600;1,600&display=swap>
                         <link rel="stylesheet" href="/styles.css">
                         <style>
                             * {
@@ -208,7 +211,7 @@ router.get('/', (req, res) => {
                                 background-color: #86BFF3;
                                 margin: 0 auto;
                                 width: 100%;
-                                max-width: 800px;
+                                max-width: 1200px;
                                 min-width: 300px;
                                 box-sizing: border-box;
                                 justify-content: flex-start;
@@ -257,7 +260,6 @@ router.get('/', (req, res) => {
                                 padding: 8px 18px;
                                 text-align: center;
                                 font-weight: 600;
-                                background-color: #fff;
                                 border-radius: 20px;
                                 margin: 2px 0 8px 0;
                                 box-shadow: 0 1px 3px rgba(0,0,0,0.07);
@@ -268,7 +270,6 @@ router.get('/', (req, res) => {
                             }
                             .section-name:hover {
                                 text-decoration: underline;
-                                background-color: #68b3f7;
                             }
                             .section-content {
                                 position: relative;
@@ -306,6 +307,12 @@ router.get('/', (req, res) => {
                             }
                             .section-content .close-button:hover {
                                 color: #666;
+                            }
+                            .group-bubble-link {
+                                text-decoration: none;
+                                color: inherit;
+                                display: block;
+                                width: 100%;
                             }
                         </style>
                         <script>
@@ -438,7 +445,7 @@ router.get('/group/:name', (req, res) => {
                         <meta name="viewport" content="width=device-width, initial-scale=1.0">
                         <title>${groupName} Group</title>
                         <link rel="icon" type="image/x-icon" href="/images/tricube-education-favicon.png">
-                        https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,600;1,600&display=swap
+                        <link https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,600;1,600&display=swap>
                         <link rel="stylesheet" href="/styles.css">
                         <style>
                             .sections-row {
