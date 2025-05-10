@@ -43,7 +43,7 @@ router.get('/lesson/:id', (req, res) => {
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <title>${lesson.pageTitle}</title>
                 <link rel="icon" type="image/x-icon" href="/images/tricube-education-favicon.png">
-                <link https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,600;1,600&display=swap>
+                <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
                 <link rel="stylesheet" href="/styles.css">
             </head>
             <body>
@@ -144,7 +144,6 @@ router.get('/', (req, res) => {
                 const groupsList = sortedGroups.map(groupName => {
                     // Get all sections for this group
                     const groupSections = groupMap[groupName].sections;
-                    const encodedGroupName = encodeURIComponent(groupName);
                     // Render sections in a 2-column grid, all inside the group bubble
                     const sectionsGrid = `
                         <ul class="sections-grid">
@@ -164,18 +163,15 @@ router.get('/', (req, res) => {
                             `).join('')}
                         </ul>
                     `;
+                    const encodedGroupName = encodeURIComponent(groupName);
                     return `
-                        <a href="/${contentType}/group/${encodedGroupName}" class="group-bubble-link">
-                            <div class="group-bubble">
-                                <div class="group-header">
-                                    <div class="group-name">${groupName}</div>
-                                    <div class="divider"></div>
-                                </div>
-                                <div class="sections">
-                                    ${sectionsGrid}
-                                </div>
-                            </div>
-                        </a>
+                        <button onclick="location.href='/${contentType}/group/${encodedGroupName}'" class="group-bubble">
+                            <span class="group-name">${groupName}</span>
+                            <span class="divider"></span>
+                            <span class="lessons">
+                                ${sectionsGrid}
+                            </span>
+                        </button>
                     `;
                 }).join('');
 
@@ -187,7 +183,7 @@ router.get('/', (req, res) => {
                         <meta name="viewport" content="width=device-width, initial-scale=1.0">
                         <title>${contentType.charAt(0).toUpperCase() + contentType.slice(1)} Lessons</title>
                         <link rel="icon" type="image/x-icon" href="/images/tricube-education-favicon.png">
-                        <link https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,600;1,600&display=swap>
+                        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
                         <link rel="stylesheet" href="/styles.css">
                         <style>
                             * {
@@ -198,59 +194,49 @@ router.get('/', (req, res) => {
                             }
                             .lessons-page {
                                 padding: 20px;
-                                max-width: 1200px;
+                                max-width: 900px;
                                 margin: 0 auto;
                                 display: flex;
                                 flex-direction: column;
                                 gap: 30px;
                             }
-                            .group-bubble-link {
-                                text-decoration: none;
-                                color: inherit;
-                                display: block;
-                                width: 100%;
-                            }
                             .group-bubble {
                                 display: flex;
-                                flex-direction: column;
-                                align-items: center;
+                                flex-direction: row;
+                                align-items: flex-start;
                                 border-radius: 15px;
-                                padding: 30px 40px 30px 40px;
+                                padding: 20px 30px;
                                 background-color: #86BFF3;
                                 margin: 0 auto;
                                 width: 100%;
-                                max-width: 1200px;
+                                max-width: 800px;
                                 min-width: 300px;
                                 box-sizing: border-box;
-                                gap: 20px;
-                            }
-                            .group-header {
-                                display: flex;
-                                flex-direction: row;
-                                align-items: center;
-                                justify-content: center;
-                                width: 100%;
-                                margin-bottom: 20px;
+                                justify-content: flex-start;
                                 gap: 20px;
                             }
                             .group-name {
+                                width: 220px;
                                 font-size: 1.5em;
                                 font-weight: 700;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
                                 text-align: center;
-                                flex-shrink: 0;
-                                padding: 0 10px;
+                                margin-right: 10px;
                             }
                             .divider {
                                 width: 2px;
                                 background-color: #ccc;
-                                height: 40px;
-                                min-height: 40px;
+                                height: 100%;
+                                min-height: 50px;
                                 margin: 0 10px;
                             }
                             .sections {
-                                width: 100%;
+                                flex: 1;
+                                min-width: 0;
                                 display: flex;
-                                justify-content: center;
+                                align-items: flex-start;
                             }
                             .sections-grid {
                                 display: grid;
@@ -287,6 +273,7 @@ router.get('/', (req, res) => {
                             }
                             .section-content {
                                 position: relative;
+                                background-color: #fff;
                                 border: 1px solid #ccc;
                                 border-radius: 5px;
                                 padding: 15px;
@@ -297,7 +284,6 @@ router.get('/', (req, res) => {
                                 overflow: hidden;
                                 width: 100%;
                                 margin-top: 5px;
-                                background: #fff;
                             }
                             .section-content.collapsed {
                                 max-height: 0;
@@ -454,7 +440,7 @@ router.get('/group/:name', (req, res) => {
                         <meta name="viewport" content="width=device-width, initial-scale=1.0">
                         <title>${groupName} Group</title>
                         <link rel="icon" type="image/x-icon" href="/images/tricube-education-favicon.png">
-                        <link https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,600;1,600&display=swap>
+                        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
                         <link rel="stylesheet" href="/styles.css">
                         <style>
                             .sections-row {
