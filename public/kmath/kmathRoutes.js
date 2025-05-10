@@ -163,15 +163,14 @@ router.get('/', (req, res) => {
                             `).join('')}
                         </ul>
                     `;
-                    const encodedGroupName = encodeURIComponent(groupName);
                     return `
-                        <button onclick="location.href='/${contentType}/group/${encodedGroupName}'" class="group-bubble">
-                            <span class="group-name">${groupName}</span>
-                            <span class="divider"></span>
-                            <span class="lessons">
+                        <div class="group-bubble">
+                            <div class="group-name">${groupName}</div>
+                            <div class="divider"></div>
+                            <div class="sections">
                                 ${sectionsGrid}
-                            </span>
-                        </button>
+                            </div>
+                        </div>
                     `;
                 }).join('');
 
