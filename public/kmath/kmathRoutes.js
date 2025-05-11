@@ -144,6 +144,7 @@ router.get('/', (req, res) => {
                 const groupsList = sortedGroups.map(groupName => {
                     // Get all sections for this group
                     const groupSections = groupMap[groupName].sections;
+                    const encodedGroupName = encodeURIComponent(groupName);
                     // Render sections in a 2-column grid, all inside the group bubble
                     const sectionsGrid = `
                         <ul class="sections-grid">
@@ -164,13 +165,13 @@ router.get('/', (req, res) => {
                         </ul>
                     `;
                     return `
-                        <div class="group-bubble">
+                        <button type="button" class="group-bubble" onclick="window.location.href='/${contentType}/group/${encodedGroupName}'">
                             <div class="group-name">${groupName}</div>
                             <div class="divider"></div>
                             <div class="sections">
                                 ${sectionsGrid}
                             </div>
-                        </div>
+                        </button>
                     `;
                 }).join('');
 
@@ -213,6 +214,17 @@ router.get('/', (req, res) => {
                                 box-sizing: border-box;
                                 justify-content: flex-start;
                                 gap: 20px;
+                                /* Remove default button styles */
+                                border: none;
+                                outline: none;
+                                cursor: pointer;
+                                box-shadow: none;
+                                appearance: none;
+                                -webkit-appearance: none;
+                                -moz-appearance: none;
+                            }
+                            .group-bubble:focus {
+                                outline: 2px solid #2e2d40;
                             }
                             .group-name {
                                 width: 220px;
