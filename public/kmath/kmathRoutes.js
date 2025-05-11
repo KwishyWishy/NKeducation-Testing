@@ -144,6 +144,7 @@ router.get('/', (req, res) => {
                 const groupsList = sortedGroups.map(groupName => {
                     // Get all sections for this group
                     const groupSections = groupMap[groupName].sections;
+                    const encodedGroupName = encodeURIComponent(groupName);
                     // Render sections in a 2-column grid, all inside the group bubble
                     const sectionsGrid = `
                         <ul class="sections-grid">
@@ -164,7 +165,8 @@ router.get('/', (req, res) => {
                         </ul>
                     `;
                     return `
-                        <div class="group-bubble">
+                        <div class="group-bubble group-bubble-wrapper" style="position:relative;">
+                            <button type="button" class="group-bubble-link" onclick="window.location.href='/${contentType}/group/${encodedGroupName}'" tabindex="0" aria-label="Go to ${groupName} group"></button>
                             <div class="group-name">${groupName}</div>
                             <div class="divider"></div>
                             <div class="sections">
@@ -213,6 +215,17 @@ router.get('/', (req, res) => {
                                 box-sizing: border-box;
                                 justify-content: flex-start;
                                 gap: 20px;
+                                /* Remove default button styles */
+                                border: none;
+                                outline: none;
+                                cursor: pointer;
+                                box-shadow: none;
+                                appearance: none;
+                                -webkit-appearance: none;
+                                -moz-appearance: none;
+                            }
+                            .group-bubble:focus {
+                                outline: 2px solid #2e2d40;
                             }
                             .group-name {
                                 width: 220px;
@@ -307,6 +320,30 @@ router.get('/', (req, res) => {
                             }
                             .section-content .close-button:hover {
                                 color: #666;
+                            }
+                            .group-bubble-wrapper {
+                                position: relative;
+                            }
+                            .group-bubble-link {
+                                position: absolute;
+                                top: 0;
+                                left: 0;
+                                width: 100%;
+                                height: 100%;
+                                background: none;
+                                border: none;
+                                cursor: pointer;
+                                z-index: 2;
+                                padding: 0;
+                                margin: 0;
+                                outline: none;
+                            }
+                            .group-bubble-link:focus {
+                                outline: 2px solid #2e2d40;
+                            }
+                            .group-bubble > *:not(.group-bubble-link) {
+                                position: relative;
+                                z-index: 3;
                             }
                         </style>
                         <script>
