@@ -150,7 +150,7 @@ router.get('/', (req, res) => {
                         <ul class="sections-grid">
                             ${groupSections.map(section => `
                                 <li>
-                                    <div class="section-name" onclick="toggleSection('${section.name}')">${section.name}</div>
+                                    <div class="section-name" onclick="event.stopPropagation(); toggleSection('${section.name}')">${section.name}</div>
                                     <div id="${section.name}" class="section-content collapsed">
                                         <button class="close-button" onclick="toggleSection('${section.name}')">×</button>
                                         <h3>${section.name}</h3>
@@ -210,7 +210,7 @@ router.get('/', (req, res) => {
                                 background-color: #86BFF3;
                                 margin: 0 auto;
                                 width: 100%;
-                                max-width: 800px;
+                                max-width: 1200px;
                                 min-width: 300px;
                                 box-sizing: border-box;
                                 justify-content: flex-start;
@@ -225,7 +225,10 @@ router.get('/', (req, res) => {
                                 -moz-appearance: none;
                             }
                             .group-bubble:focus {
-                                outline: 2px solid #2e2d40;
+                                outline: none;
+                            }
+                            .group-bubble:hover {
+                                background-color: #68b3f7;
                             }
                             .group-name {
                                 width: 220px;
@@ -270,18 +273,17 @@ router.get('/', (req, res) => {
                                 padding: 8px 18px;
                                 text-align: center;
                                 font-weight: 600;
-                                background-color: #fff;
+                                background-color: #86BFF3;
                                 border-radius: 20px;
                                 margin: 2px 0 8px 0;
                                 box-shadow: 0 1px 3px rgba(0,0,0,0.07);
-                                border: 1px solid #e0e0e0;
+                                border: 1px solid #ccc;
                                 transition: background 0.2s;
                                 color: #2e2d40;
                                 font-size: 1.1em;
                             }
                             .section-name:hover {
                                 text-decoration: underline;
-                                background-color: #f0f0f0;
                             }
                             .section-content {
                                 position: relative;
@@ -341,9 +343,8 @@ router.get('/', (req, res) => {
                             .group-bubble-link:focus {
                                 outline: 2px solid #2e2d40;
                             }
-                            .group-bubble > *:not(.group-bubble-link) {
-                                position: relative;
-                                z-index: 3;
+                            .group-bubble:hover .section-name {
+                                background-color: #68b3f7;
                             }
                         </style>
                         <script>
