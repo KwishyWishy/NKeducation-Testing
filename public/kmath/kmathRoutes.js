@@ -356,79 +356,86 @@ router.get('/', (req, res) => {
                             }
                         </style>
                         <script>
-                        function setDividerHeight(groupIndex) {
-                            const bubble = document.querySelector('.group-bubble[data-group-index="' + groupIndex + '"]');
-                            const divider = document.querySelector('.divider[data-group-index="' + groupIndex + '"]');
-                            if (bubble && divider) {
-                                const bubbleHeight = bubble.offsetHeight;
-                                divider.style.height = Math.max(50, Math.round(bubbleHeight * 0.9)) + 'px';
-                            }
-                        }
+                            let originalHeights = []; // Array to store original heights of group bubbles
 
-                        function setAllDividerHeights() {
-                            const bubbles = document.querySelectorAll('.group-bubble');
-                            bubbles.forEach((bubble, idx) => setDividerHeight(idx));
-                        }
-
-                        function toggleSection (sectionId, groupIndex) {
-                            const section = document.getElementById(sectionId);
-                            const allSections = document.querySelectorAll('.section-content');
-                            
-                            // Close all other sections
-                            allSections.forEach(s => {
-                                if (s.id !== sectionId) {
-                                    s.classList.add('collapsed');
-                                    s.style.display = '';
+                            function setDividerHeight(groupIndex, height = null) {
+                                const bubble = document.querySelector('.group-bubble[data-group-index="' + groupIndex + '"]');
+                                const divider = document.querySelector('.divider[data-group-index="' + groupIndex + '"]');
+                                if (bubble && divider) {
+                                    const bubbleHeight = height !== null ? height : bubble.offsetHeight;
+                                    divider.style.height = Math.max(50, Math.round(bubbleHeight * 0.9)) + 'px';
                                 }
-                            });
-                            
-                            // Toggle the clicked section
-                            if (section.classList.contains('collapsed')) {
-                                // Expanding: set display:block before removing collapsed
-                                section.style.display = 'block';
-                                // Force reflow to apply display before removing class
-                                void section.offsetWidth;
-                                section.classList.remove('collapsed');
-                            } else {
-                                // Collapsing: add collapsed class
-                                section.classList.add('collapsed');
                             }
-                            
-                            // Update divider height immediately for expand
-                            setDividerHeight(groupIndex);
-                            
-                            // Listen for transitionend to update divider after collapse/expand
-                            const onTransitionEnd = (e) => {
-                                if (e.propertyName === 'max-height') {
-                                    setDividerHeight(groupIndex);
-                                    // If collapsed, set display:none
-                                    if (section.classList.contains('collapsed')) {
-                                        section.style.display = 'none';
-                                    } else {
-                                        section.style.display = 'block';
+
+                            function setAllDividerHeights() {
+                                const bubbles = document.querySelectorAll('.group-bubble');
+                                bubbles.forEach((bubble, idx) => {
+                                    originalHeights[idx] = bubble .offsetHeight; // Store original height
+                                    setDividerHeight(idx, originalHeights[idx]); // Set initial divider height
+                                });
+                            }
+
+                            function toggleSection(sectionId, groupIndex) {
+                                const section = document.getElementById(sectionId);
+                                const allSections = document.querySelectorAll('.section-content');
+                                
+                                // Close all other sections
+                                allSections.forEach(s => {
+                                    if (s.id !== sectionId) {
+                                        s.classList.add('collapsed');
+                                        s.style.display = '';
                                     }
-                                    section.removeEventListener('transitionend', onTransitionEnd);
+                                });
+                                
+                                // Toggle the clicked section
+                                if (section.classList.contains('collapsed')) {
+                                    // Expanding: set display:block before removing collapsed
+                                    section.style.display = 'block';
+                                    // Force reflow to apply display before removing class
+                                    void section.offsetWidth;
+                                    section.classList.remove('collapsed');
+                                } else {
+                                    // Collapsing: add collapsed class
+                                    section.classList.add('collapsed');
                                 }
-                            };
-                            section.addEventListener('transitionend', onTransitionEnd);
-                        }
-
-                        function handleGroupBubbleClick(event, groupName) {
-                            // If the click is on a section name, section-content, or close-button, do nothing
-                            const ignoreClasses = ['section-name', 'section-content', 'close-button'];
-                            let el = event.target;
-                            while (el && el !== event.currentTarget) {
-                                if (ignoreClasses.some(cls => el.classList && el.classList.contains(cls))) {
-                                    return;
-                                }
-                                el = el.parentElement;
+                                
+                                // Update divider height immediately for expand
+                                setDividerHeight(groupIndex);
+                                
+                                // Listen for transitionend to update divider after collapse/expand
+                                const onTransitionEnd = (e) => {
+                                    if (e.propertyName === 'max-height') {
+                                        if (section.classList.contains('collapsed')) {
+                                            // If collapsed, set display:none
+                                            section.style.display = 'none';
+                                            // Reset divider height to original
+                                            setDividerHeight(groupIndex, originalHeights[groupIndex]);
+                                        } else {
+                                            // If expanded, update divider height
+                                            setDividerHeight(groupIndex);
+                                        }
+                                        section.removeEventListener('transitionend', onTransitionEnd);
+                                    }
+                                };
+                                section.addEventListener('transitionend', onTransitionEnd);
                             }
-                            window.location.href = '/kmath/group/' + groupName;
-                        }
 
-                        // On page load and resize, set all divider heights
-                        window.addEventListener('DOMContentLoaded', setAllDividerHeights);
-                        window.addEventListener('resize', setAllDividerHeights);
+                            function handleGroupBubbleClick(event, groupName) {
+                                // If the click is on a section name, section-content, or close-button, do nothing
+                                const ignoreClasses = ['section-name', 'section-content', 'close-button'];
+                                let el = event.target;
+                                while (el && el !== event.currentTarget) {
+                                    if (ignoreClasses.some(cls => el.classList && el.classList.contains(cls))) {
+                                        return;
+                                    }
+                                    el = el.parentElement;
+                                }
+                                window.location.href = '/kmath/group/' + groupName;
+                            }
+
+                            // On page load and resize, set all divider heights
+                            window.addEventListener('DOMContentLoaded', setAllDividerHeights);
+                            window.addEventListener('resize', setAllDividerHeights);
                         </script>
                     </head>
                     <body>
