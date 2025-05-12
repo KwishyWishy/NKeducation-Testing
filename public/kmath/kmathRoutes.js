@@ -388,7 +388,14 @@ router.get('/', (req, res) => {
                             // Toggle the clicked section
                             section.classList.toggle('collapsed');
                             setDividerHeight(groupIndex); // immediately for expand
-                            setTimeout(() => setDividerHeight(groupIndex), 400); // after transition for collapse
+                            // Listen for transitionend to update divider after collapse/expand
+                            const onTransitionEnd = (e) => {
+                                if (e.propertyName === 'max-height') {
+                                    setDividerHeight(groupIndex);
+                                    section.removeEventListener('transitionend', onTransitionEnd);
+                                }
+                            };
+                            section.addEventListener('transitionend', onTransitionEnd);
                         }
 
                         function handleGroupBubbleClick(event, groupName) {
