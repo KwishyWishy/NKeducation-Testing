@@ -383,15 +383,31 @@ router.get('/', (req, res) => {
                             allSections.forEach(s => {
                                 if (s.id !== sectionId) {
                                     s.classList.add('collapsed');
+                                    s.style.display = '';
                                 }
                             });
                             // Toggle the clicked section
-                            section.classList.toggle('collapsed');
+                            if (section.classList.contains('collapsed')) {
+                                // Expanding: set display:block before removing collapsed
+                                section.style.display = 'block';
+                                // Force reflow to apply display before removing class
+                                void section.offsetWidth;
+                                section.classList.remove('collapsed');
+                            } else {
+                                // Collapsing: add collapsed class
+                                section.classList.add('collapsed');
+                            }
                             setDividerHeight(groupIndex); // immediately for expand
                             // Listen for transitionend to update divider after collapse/expand
                             const onTransitionEnd = (e) => {
                                 if (e.propertyName === 'max-height') {
                                     setDividerHeight(groupIndex);
+                                    // If collapsed, set display:none
+                                    if (section.classList.contains('collapsed')) {
+                                        section.style.display = 'none';
+                                    } else {
+                                        section.style.display = 'block';
+                                    }
                                     section.removeEventListener('transitionend', onTransitionEnd);
                                 }
                             };
