@@ -387,7 +387,8 @@ router.get('/', (req, res) => {
                             });
                             // Toggle the clicked section
                             section.classList.toggle('collapsed');
-                            setTimeout(() => setDividerHeight(groupIndex), 350); // after transition
+                            setDividerHeight(groupIndex); // immediately for expand
+                            setTimeout(() => setDividerHeight(groupIndex), 400); // after transition for collapse
                         }
 
                         function handleGroupBubbleClick(event, groupName) {
