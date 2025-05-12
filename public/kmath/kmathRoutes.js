@@ -214,6 +214,7 @@ router.get('/', (req, res) => {
                                 box-sizing: border-box;
                                 justify-content: flex-start;
                                 gap: 20px;
+                                transition: background 0.3s;
                                 /* Remove default button styles */
                                 border: none;
                                 outline: none;
@@ -251,6 +252,7 @@ router.get('/', (req, res) => {
                                 min-height: 50px;
                                 align-self: center;
                                 margin: 0 10px;
+                                transition: height 0.3s;
                             }
                             .sections {
                                 flex: 1;
@@ -283,7 +285,7 @@ router.get('/', (req, res) => {
                                 margin: 2px 0 8px 0;
                                 box-shadow: 0 1px 3px rgba(0,0,0,0.07);
                                 border: 1px solid #ccc;
-                                transition: background 0.2s;
+                                transition: background 0.3s;
                                 color: #2e2d40;
                                 font-size: 1.1em;
                                 pointer-events: auto;
