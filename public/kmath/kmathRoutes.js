@@ -165,8 +165,7 @@ router.get('/', (req, res) => {
                         </ul>
                     `;
                     return `
-                        <div class="group-bubble group-bubble-wrapper" style="position:relative;">
-                            <button type="button" class="group-bubble-link" onclick="window.location.href='/${contentType}/group/${encodedGroupName}'" tabindex="0" aria-label="Go to ${groupName} group"></button>
+                        <div class="group-bubble group-bubble-wrapper" style="position:relative;" onclick="handleGroupBubbleClick(event, '${encodedGroupName}')">
                             <div class="group-name">${groupName}</div>
                             <div class="divider"></div>
                             <div class="sections">
@@ -248,9 +247,9 @@ router.get('/', (req, res) => {
                             .divider {
                                 width: 2px;
                                 background-color: #ccc;
-                                height: 80%;
+                                height: 90%;
                                 min-height: 50px;
-                                align-self: stretch;
+                                align-self: center;
                                 margin: 0 10px;
                             }
                             .sections {
@@ -374,6 +373,19 @@ router.get('/', (req, res) => {
 
                                 // Toggle the clicked section
                                 section.classList.toggle('collapsed');
+                            }
+
+                            function handleGroupBubbleClick(event, groupName) {
+                                // If the click is on a section name, section-content, or close-button, do nothing
+                                const ignoreClasses = ['section-name', 'section-content', 'close-button'];
+                                let el = event.target;
+                                while (el && el !== event.currentTarget) {
+                                    if (ignoreClasses.some(cls => el.classList && el.classList.contains(cls))) {
+                                        return;
+                                    }
+                                    el = el.parentElement;
+                                }
+                                window.location.href = '/kmath/group/' + groupName;
                             }
                         </script>
                     </head>
