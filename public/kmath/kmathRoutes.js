@@ -204,7 +204,7 @@ router.get('/', (req, res) => {
                             .group-bubble {
                                 display: flex;
                                 flex-direction: row;
-                                align-items: flex-start;
+                                align-items: center;
                                 border-radius: 15px;
                                 padding: 20px 30px;
                                 background-color: #86BFF3;
@@ -223,6 +223,7 @@ router.get('/', (req, res) => {
                                 appearance: none;
                                 -webkit-appearance: none;
                                 -moz-appearance: none;
+                                min-height: 110px;
                             }
                             .group-bubble:focus {
                                 outline: none;
@@ -231,7 +232,7 @@ router.get('/', (req, res) => {
                                 background-color: #68b3f7;
                             }
                             .group-name {
-                                width: 220px;
+                                width: 260px;
                                 font-size: 1.5em;
                                 font-weight: 700;
                                 display: flex;
@@ -239,12 +240,17 @@ router.get('/', (req, res) => {
                                 justify-content: center;
                                 text-align: center;
                                 margin-right: 10px;
+                                white-space: normal;
+                                word-break: break-word;
+                                line-height: 1.2;
+                                padding: 8px 0;
                             }
                             .divider {
                                 width: 2px;
                                 background-color: #ccc;
-                                height: 100%;
+                                height: 80%;
                                 min-height: 50px;
+                                align-self: stretch;
                                 margin: 0 10px;
                             }
                             .sections {
