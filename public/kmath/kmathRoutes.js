@@ -195,7 +195,7 @@ router.get('/', (req, res) => {
                             }
                             .lessons-page {
                                 padding: 20px;
-                                max-width: 900px;
+                                max-width: 1300px;
                                 margin: 0 auto;
                                 display: flex;
                                 flex-direction: column;
@@ -281,6 +281,7 @@ router.get('/', (req, res) => {
                                 transition: background 0.2s;
                                 color: #2e2d40;
                                 font-size: 1.1em;
+                                pointer-events: auto;
                             }
                             .section-name:hover {
                                 text-decoration: underline;
@@ -298,6 +299,8 @@ router.get('/', (req, res) => {
                                 overflow: hidden;
                                 width: 100%;
                                 margin-top: 5px;
+                                background: #fff;
+                                pointer-events: auto;
                             }
                             .section-content.collapsed {
                                 max-height: 0;
@@ -319,6 +322,7 @@ router.get('/', (req, res) => {
                                 font-size: 20px;
                                 cursor: pointer;
                                 color: #2e2d40;
+                                pointer-events: auto;
                             }
                             .section-content .close-button:hover {
                                 color: #666;
@@ -339,12 +343,17 @@ router.get('/', (req, res) => {
                                 padding: 0;
                                 margin: 0;
                                 outline: none;
+                                pointer-events: auto;
                             }
                             .group-bubble-link:focus {
                                 outline: 2px solid #2e2d40;
                             }
                             .group-bubble:hover .section-name {
                                 background-color: #68b3f7;
+                            }
+                            .group-bubble:focus,
+                            .group-bubble-link:focus {
+                                outline: none !important;
                             }
                         </style>
                         <script>
