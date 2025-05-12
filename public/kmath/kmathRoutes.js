@@ -103,7 +103,7 @@ router.get('/', (req, res) => {
         if (err) {
             return res.status(500).send('Error reading lessons file');
         }
-        const lessons = JSON.parse(lessonsData);
+ const lessons = JSON.parse(lessonsData);
 
         fs.readFile(groupsFilePath, 'utf8', (err, groupsData) => {
             if (err) {
@@ -142,10 +142,8 @@ router.get('/', (req, res) => {
                 });
 
                 const groupsList = sortedGroups.map((groupName, groupIndex) => {
-                    // Get all sections for this group
                     const groupSections = groupMap[groupName].sections;
                     const encodedGroupName = encodeURIComponent(groupName);
-                    // Render sections in a 2-column grid, all inside the group bubble
                     const sectionsGrid = `
                         <ul class="sections-grid">
                             ${groupSections.map(section => `
@@ -215,7 +213,6 @@ router.get('/', (req, res) => {
                                 justify-content: flex-start;
                                 gap: 20px;
                                 transition: background 0.3s;
-                                /* Remove default button styles */
                                 border: none;
                                 outline: none;
                                 cursor: pointer;
@@ -225,13 +222,10 @@ router.get('/', (req, res) => {
                                 -moz-appearance: none;
                                 min-height: 110px;
                             }
-                            .group-bubble:focus {
-                                outline: none;
-                            }
                             .group-bubble:hover {
                                 background-color: #68b3f7;
                             }
-                            .group-name {
+                            . group-name {
                                 width: 260px;
                                 font-size: 1.5em;
                                 font-weight: 700;
@@ -252,7 +246,7 @@ router.get('/', (req, res) => {
                                 min-height: 50px;
                                 align-self: center;
                                 margin: 0 10px;
-                                transition: height 0.3s;
+                                transition: height 0.3s ease; /* Smooth transition */
                             }
                             .sections {
                                 flex: 1;
@@ -376,9 +370,10 @@ router.get('/', (req, res) => {
                             bubbles.forEach((bubble, idx) => setDividerHeight(idx));
                         }
 
-                        function toggleSection(sectionId, groupIndex) {
+                        function toggleSection (sectionId, groupIndex) {
                             const section = document.getElementById(sectionId);
                             const allSections = document.querySelectorAll('.section-content');
+                            
                             // Close all other sections
                             allSections.forEach(s => {
                                 if (s.id !== sectionId) {
@@ -386,6 +381,7 @@ router.get('/', (req, res) => {
                                     s.style.display = '';
                                 }
                             });
+                            
                             // Toggle the clicked section
                             if (section.classList.contains('collapsed')) {
                                 // Expanding: set display:block before removing collapsed
@@ -397,7 +393,10 @@ router.get('/', (req, res) => {
                                 // Collapsing: add collapsed class
                                 section.classList.add('collapsed');
                             }
-                            setDividerHeight(groupIndex); // immediately for expand
+                            
+                            // Update divider height immediately for expand
+                            setDividerHeight(groupIndex);
+                            
                             // Listen for transitionend to update divider after collapse/expand
                             const onTransitionEnd = (e) => {
                                 if (e.propertyName === 'max-height') {
@@ -624,7 +623,7 @@ router.get('/group/:name', (req, res) => {
                             </div>
                             <a href="/${contentType}">Back to Lessons</a>
                         </main>
-                    </body>
+                    </ </body>
                     </html>
                 `;
                 res.send(groupPage);
