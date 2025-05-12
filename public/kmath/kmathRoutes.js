@@ -285,6 +285,7 @@ router.get('/', (req, res) => {
                             }
                             .section-name:hover {
                                 text-decoration: underline;
+                                background-color: #68b3f7;
                             }
                             .section-content {
                                 position: relative;
@@ -347,9 +348,6 @@ router.get('/', (req, res) => {
                             }
                             .group-bubble-link:focus {
                                 outline: 2px solid #2e2d40;
-                            }
-                            .group-bubble:hover .section-name {
-                                background-color: #68b3f7;
                             }
                             .group-bubble:focus,
                             .group-bubble-link:focus {
