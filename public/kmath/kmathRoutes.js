@@ -141,7 +141,7 @@ router.get('/', (req, res) => {
                     return groupMap[a].order - groupMap[b].order;
                 });
 
-                const groupsList = sortedGroups.map(groupName => {
+                const groupsList = sortedGroups.map((groupName, groupIndex) => {
                     // Get all sections for this group
                     const groupSections = groupMap[groupName].sections;
                     const encodedGroupName = encodeURIComponent(groupName);
@@ -150,9 +150,9 @@ router.get('/', (req, res) => {
                         <ul class="sections-grid">
                             ${groupSections.map(section => `
                                 <li>
-                                    <div class="section-name" onclick="event.stopPropagation(); toggleSection('${section.name}')">${section.name}</div>
+                                    <div class="section-name" onclick="event.stopPropagation(); toggleSection('${section.name}', ${groupIndex})">${section.name}</div>
                                     <div id="${section.name}" class="section-content collapsed">
-                                        <button class="close-button" onclick="toggleSection('${section.name}')">×</button>
+                                        <button class="close-button" onclick="event.stopPropagation(); toggleSection('${section.name}', ${groupIndex})">×</button>
                                         <h3>${section.name}</h3>
                                         <ul>
                                             ${lessons.filter(lesson => lesson.section === section.name).map(lesson => `
@@ -165,9 +165,9 @@ router.get('/', (req, res) => {
                         </ul>
                     `;
                     return `
-                        <div class="group-bubble group-bubble-wrapper" style="position:relative;" onclick="handleGroupBubbleClick(event, '${encodedGroupName}')">
+                        <div class="group-bubble group-bubble-wrapper" style="position:relative;" data-group-index="${groupIndex}" onclick="handleGroupBubbleClick(event, '${encodedGroupName}')">
                             <div class="group-name">${groupName}</div>
-                            <div class="divider"></div>
+                            <div class="divider" data-group-index="${groupIndex}"></div>
                             <div class="sections">
                                 ${sectionsGrid}
                             </div>
@@ -248,7 +248,7 @@ router.get('/', (req, res) => {
                             .divider {
                                 width: 2px;
                                 background-color: #ccc;
-                                height: 90%;
+                                height: 90px; /* will be set by JS */
                                 min-height: 50px;
                                 align-self: center;
                                 margin: 0 10px;
@@ -362,33 +362,50 @@ router.get('/', (req, res) => {
                             }
                         </style>
                         <script>
-                            function toggleSection(sectionId) {
-                                const section = document.getElementById(sectionId);
-                                const allSections = document.querySelectorAll('.section-content');
-                                
-                                // Close all other sections
-                                allSections.forEach(s => {
-                                    if (s.id !== sectionId) {
-                                        s.classList.add('collapsed');
-                                    }
-                                });
-
-                                // Toggle the clicked section
-                                section.classList.toggle('collapsed');
+                        function setDividerHeight(groupIndex) {
+                            const bubble = document.querySelector('.group-bubble[data-group-index="' + groupIndex + '"]');
+                            const divider = document.querySelector('.divider[data-group-index="' + groupIndex + '"]');
+                            if (bubble && divider) {
+                                const bubbleHeight = bubble.offsetHeight;
+                                divider.style.height = Math.max(50, Math.round(bubbleHeight * 0.9)) + 'px';
                             }
+                        }
 
-                            function handleGroupBubbleClick(event, groupName) {
-                                // If the click is on a section name, section-content, or close-button, do nothing
-                                const ignoreClasses = ['section-name', 'section-content', 'close-button'];
-                                let el = event.target;
-                                while (el && el !== event.currentTarget) {
-                                    if (ignoreClasses.some(cls => el.classList && el.classList.contains(cls))) {
-                                        return;
-                                    }
-                                    el = el.parentElement;
+                        function setAllDividerHeights() {
+                            const bubbles = document.querySelectorAll('.group-bubble');
+                            bubbles.forEach((bubble, idx) => setDividerHeight(idx));
+                        }
+
+                        function toggleSection(sectionId, groupIndex) {
+                            const section = document.getElementById(sectionId);
+                            const allSections = document.querySelectorAll('.section-content');
+                            // Close all other sections
+                            allSections.forEach(s => {
+                                if (s.id !== sectionId) {
+                                    s.classList.add('collapsed');
                                 }
-                                window.location.href = '/kmath/group/' + groupName;
+                            });
+                            // Toggle the clicked section
+                            section.classList.toggle('collapsed');
+                            setTimeout(() => setDividerHeight(groupIndex), 350); // after transition
+                        }
+
+                        function handleGroupBubbleClick(event, groupName) {
+                            // If the click is on a section name, section-content, or close-button, do nothing
+                            const ignoreClasses = ['section-name', 'section-content', 'close-button'];
+                            let el = event.target;
+                            while (el && el !== event.currentTarget) {
+                                if (ignoreClasses.some(cls => el.classList && el.classList.contains(cls))) {
+                                    return;
+                                }
+                                el = el.parentElement;
                             }
+                            window.location.href = '/kmath/group/' + groupName;
+                        }
+
+                        // On page load and resize, set all divider heights
+                        window.addEventListener('DOMContentLoaded', setAllDividerHeights);
+                        window.addEventListener('resize', setAllDividerHeights);
                         </script>
                     </head>
                     <body>
