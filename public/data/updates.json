@@ -1,5 +1,16 @@
 {
    "updates": [
+    {
+      "update_number": "BETA v2.2.0",
+      "date": "May 13, 2025",
+      "description": "Completion of Main Lessons Page",
+      "changes": [
+        "Each grade level for each subject will have a main page",
+        "The page is broken up into clickable groups",
+        "Each group button displays sections within the group",
+        "Lessons are accessed through these sections"
+      ]
+    },
      {
        "update_number": "BETA v2.1.1",
        "date": "April 5, 2025",
