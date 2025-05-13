@@ -361,7 +361,7 @@ router.get('/', (req, res) => {
                         </style>
                         <script>
                             let originalHeights = []; // Array to store original heights of group bubbles
-                        
+
                             function setDividerHeight(groupIndex, height = null) {
                                 const bubble = document.querySelector('.group-bubble[data-group-index="' + groupIndex + '"]');
                                 const divider = document.querySelector('.divider[data-group-index="' + groupIndex + '"]');
@@ -370,7 +370,7 @@ router.get('/', (req, res) => {
                                     divider.style.height = Math.max(50, Math.round(bubbleHeight * 0.9)) + 'px';
                                 }
                             }
-                        
+
                             function setAllDividerHeights() {
                                 const bubbles = document.querySelectorAll('.group-bubble');
                                 bubbles.forEach((bubble, idx) => {
@@ -378,22 +378,23 @@ router.get('/', (req, res) => {
                                     setDividerHeight(idx, originalHeights[idx]); // Set initial divider height
                                 });
                             }
-                        
+
                             function toggleSection(sectionId, groupIndex) {
                                 const section = document.getElementById(sectionId);
                                 const allSections = document.querySelectorAll('.section-content');
                                 const allDividers = document.querySelectorAll('.divider');
-                        
+
                                 // Close all other sections and update their dividers
                                 allSections.forEach((s, idx) => {
                                     if (s.id !== sectionId) {
                                         s.classList.add('collapsed');
                                         s.style.display = 'none'; // Hide collapsed sections
-                                        // Reset the height of the group bubble to its original height
-                                        setDividerHeight(groupIndex, originalHeights[groupIndex]);
+                                        // Update the divider height for the group bubble
+                                        const groupBubbleIndex = Math.floor(idx / 2); // Assuming 2 sections per group
+                                        setDividerHeight(groupBubbleIndex, originalHeights[groupBubbleIndex]);
                                     }
                                 });
-                        
+
                                 // Toggle the clicked section
                                 if (section.classList.contains('collapsed')) {
                                     // Expanding: set display:block before removing collapsed
@@ -405,7 +406,7 @@ router.get('/', (req, res) => {
                                     // Collapsing: add collapsed class
                                     section.classList.add('collapsed');
                                 }
-                        
+
                                 // Update divider height immediately for expand
                                 setDividerHeight(groupIndex);
                                 
@@ -424,7 +425,7 @@ router.get('/', (req, res) => {
                                 };
                                 section.addEventListener('transitionend', onTransitionEnd);
                             }
-                        
+
                             function handleGroupBubbleClick(event, groupName) {
                                 // If the click is on a section name, section-content, or close-button, do nothing
                                 const ignoreClasses = ['section-name', 'section-content', 'close-button'];
@@ -437,12 +438,11 @@ router.get('/', (req, res) => {
                                 }
                                 window.location.href = '/kmath/group/' + groupName;
                             }
-                        
+
                             // On page load and resize, set all divider heights
                             window.addEventListener('DOMContentLoaded', setAllDividerHeights);
                             window.addEventListener('resize', setAllDividerHeights);
                         </script>
-
                     </head>
                     <body>
                     <header>
