@@ -213,6 +213,7 @@ router.get('/', (req, res) => {
                                 justify-content: flex-start;
                                 gap: 20px;
                                 transition: background 0.3s;
+                                /* Remove default button styles */
                                 border: none;
                                 outline: none;
                                 cursor: pointer;
@@ -222,10 +223,13 @@ router.get('/', (req, res) => {
                                 -moz-appearance: none;
                                 min-height: 110px;
                             }
+                            .group-bubble:focus {
+                                outline: none;
+                            }
                             .group-bubble:hover {
                                 background-color: #68b3f7;
                             }
-                            . group-name {
+                            .group-name {
                                 width: 260px;
                                 font-size: 1.5em;
                                 font-weight: 700;
@@ -246,7 +250,7 @@ router.get('/', (req, res) => {
                                 min-height: 50px;
                                 align-self: center;
                                 margin: 0 10px;
-                                transition: height 0.3s ease; /* Smooth transition */
+                                transition: height 0.3s;
                             }
                             .sections {
                                 flex: 1;
