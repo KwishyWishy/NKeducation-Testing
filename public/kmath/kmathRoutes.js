@@ -374,7 +374,7 @@ router.get('/', (req, res) => {
                             function setAllDividerHeights() {
                                 const bubbles = document.querySelectorAll('.group-bubble');
                                 bubbles.forEach((bubble, idx) => {
-                                    originalHeights[idx] = bubble .offsetHeight; // Store original height
+                                    originalHeights[idx] = bubble.offsetHeight; // Store original height
                                     setDividerHeight(idx, originalHeights[idx]); // Set initial divider height
                                 });
                             }
@@ -382,15 +382,17 @@ router.get('/', (req, res) => {
                             function toggleSection(sectionId, groupIndex) {
                                 const section = document.getElementById(sectionId);
                                 const allSections = document.querySelectorAll('.section-content');
-                                
-                                // Close all other sections
-                                allSections.forEach(s => {
+                                const allDividers = document.querySelectorAll('.divider');
+
+                                // Close all other sections and update their dividers
+                                allSections.forEach((s, idx) => {
                                     if (s.id !== sectionId) {
                                         s.classList.add('collapsed');
-                                        s.style.display = '';
+                                        s.style.display = 'none'; // Hide collapsed sections
+                                        setDividerHeight(Math.floor(idx / 2)); // Update divider height for the group
                                     }
                                 });
-                                
+
                                 // Toggle the clicked section
                                 if (section.classList.contains('collapsed')) {
                                     // Expanding: set display:block before removing collapsed
@@ -402,7 +404,7 @@ router.get('/', (req, res) => {
                                     // Collapsing: add collapsed class
                                     section.classList.add('collapsed');
                                 }
-                                
+
                                 // Update divider height immediately for expand
                                 setDividerHeight(groupIndex);
                                 
@@ -410,9 +412,7 @@ router.get('/', (req, res) => {
                                 const onTransitionEnd = (e) => {
                                     if (e.propertyName === 'max-height') {
                                         if (section.classList.contains('collapsed')) {
-                                            // If collapsed, set display:none
-                                            section.style.display = 'none';
-                                            // Reset divider height to original
+                                            // If collapsed, reset divider height to original
                                             setDividerHeight(groupIndex, originalHeights[groupIndex]);
                                         } else {
                                             // If expanded, update divider height
