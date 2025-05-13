@@ -383,17 +383,25 @@ router.get('/', (req, res) => {
                                 const section = document.getElementById(sectionId);
                                 const allSections = document.querySelectorAll('.section-content');
 
-                                // Collapse all sections and reset their heights
+                                // Check if the clicked section is already open
+                                const isCurrentlyOpen = !section.classList.contains('collapsed');
+
+                                // Close all other sections in the same group and update their dividers
                                 allSections.forEach((s, idx) => {
-                                    s.classList.add('collapsed');
-                                    s.style.display = 'none'; // Hide collapsed sections
-                                    // Update the divider height for the group bubble
-                                    const groupBubbleIndex = Math.floor(idx / 2); // Assuming 2 sections per group
-                                    setDividerHeight(groupBubbleIndex, originalHeights[groupBubbleIndex]);
+                                    if (s.id !== sectionId && s.classList.contains('collapsed') === false) {
+                                        s.classList.add('collapsed');
+                                        s.style.display = 'none'; // Hide collapsed sections
+                                        // Update the divider height for the group bubble
+                                        setDividerHeight(groupIndex, originalHeights[groupIndex]);
+                                    }
                                 });
 
                                 // Toggle the clicked section
-                                if (section.classList.contains('collapsed')) {
+                                if (isCurrentlyOpen) {
+                                    // If the section is currently open, collapse it
+                                    section.classList.add('collapsed');
+                                    section.style.display = 'none'; // Hide the section
+                                } else {
                                     // Expanding: set display:block before removing collapsed
                                     section.style.display = 'block';
                                     // Force reflow to apply display before removing class
